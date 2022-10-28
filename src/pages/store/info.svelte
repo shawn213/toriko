@@ -1,10 +1,11 @@
 <script lang="ts">
 import { List, Li, Span } from 'flowbite-svelte';
+import { url, page } from '@roxi/routify';
 import { onMount } from 'svelte';
 import { get } from 'svelte/store';
-import { storeId, inns } from '../store/stores';
-import StarRating from '../lib/Rating.svelte';
-import Map from '../lib/Map.svelte';
+import { storeId, inns } from '../../stores/stores';
+import StarRating from '../../lib/Rating.svelte';
+import Map from '../../lib/Map.svelte';
 $: idx = 0;
 let store: any;
 $: stores = get(inns);

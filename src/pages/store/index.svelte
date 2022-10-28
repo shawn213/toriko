@@ -1,11 +1,12 @@
 <script lang="ts">
 import { get } from 'svelte/store';
-import Card from '../lib/Card.svelte';
-import { inns, storeId } from '../store/stores';
-import { navigate } from 'svelte-routing';
+import { goto } from '@roxi/routify';
+import Card from '../../lib/Card.svelte';
+import { inns, storeId } from '../../stores/stores';
 let stores = get(inns);
 const handleClick = (idx: number) => {
 	storeId.set(idx);
+	$goto('/store/info');
 };
 </script>
 
