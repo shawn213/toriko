@@ -9,5 +9,9 @@ export default defineConfig({
     alias: {
       $page: path.resolve('./src/pages')
     }
-  }
+  },
+	base: '/toriko/',
+	build: {
+		target:['edge90','chrome90','firefox90','safari15'],
+	}
 })

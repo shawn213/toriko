@@ -1,5 +1,5 @@
 import Home from "./pages/Home.svelte";
-import About from "./pages/About.svelte";
+import StoreList from "./pages/StoreList.svelte";
 
 export default [
 	{
@@ -8,8 +8,15 @@ export default [
 		component: Home,
 	},
 	{
-		name: 'About',
-		path: '/about',
-		component: About,
+		name: 'Store',
+		path: 'store',
+		component: StoreList,
+		children: [
+			{
+				name: 'List',
+				path: 'list',
+				component: StoreList,
+			}
+		]
 	}
 ]
