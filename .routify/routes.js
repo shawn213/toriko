@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.8
- * File generated Fri Oct 28 2022 08:49:05 GMT+0000 (Coordinated Universal Time)
+ * File generated Mon Oct 31 2022 07:02:49 GMT+0000 (Coordinated Universal Time)
  */
 
 export const __version = "2.18.8"
-export const __timestamp = "2022-10-28T08:49:05.760Z"
+export const __timestamp = "2022-10-31T07:02:49.348Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -59,6 +59,31 @@ export const _tree = {
       "badExt": false,
       "absolutePath": "/home/shawn/soft/toriko/src/pages/store",
       "children": [
+        {
+          "isFile": true,
+          "isDir": false,
+          "file": "create.svelte",
+          "filepath": "/store/create.svelte",
+          "name": "create",
+          "ext": "svelte",
+          "badExt": false,
+          "absolutePath": "/home/shawn/soft/toriko/src/pages/store/create.svelte",
+          "importPath": "../src/pages/store/create.svelte",
+          "isLayout": false,
+          "isReset": false,
+          "isIndex": false,
+          "isFallback": false,
+          "isPage": true,
+          "ownMeta": {},
+          "meta": {
+            "recursive": true,
+            "preload": false,
+            "prerender": true
+          },
+          "path": "/store/create",
+          "id": "_store_create",
+          "component": () => import('../src/pages/store/create.svelte').then(m => m.default)
+        },
         {
           "isFile": true,
           "isDir": false,
