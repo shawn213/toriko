@@ -6,6 +6,7 @@ let options = {
 	recenter: true,
 	zoom: 19,
 	maxZoom: 18,
+	zIndex: 0,
 	markers: [
 		{
 			lat: 22.61321821006927,
@@ -27,4 +28,4 @@ let options = {
 };
 </script>
 
-<Map {options} />
+<Map class="z-0" {options} />
