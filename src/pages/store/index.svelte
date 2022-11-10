@@ -19,6 +19,7 @@ const handleClick = (idx: number) => {
 				delicious={store.delicious}
 				distance={store.distance}
 				time={store.time}
+        store={store}
 				on:click={() => handleClick(idx)} />
 		{/each}
 	{/if}

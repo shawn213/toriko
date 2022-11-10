@@ -20,6 +20,12 @@ let activities = [
     alt: 'image alt here',
     src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',
   },
+  {
+    title: '加入審查機制',
+    date: '2022/11/10',
+    alt: 'image alt here',
+    src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',
+  },
 ];
 </script>
 

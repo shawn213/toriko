@@ -17,7 +17,7 @@ const menu = [
 ];
 
 let max = get(inns).length;
-const handleClick = () => {
+const handleClick = async () => {
   storeId.set(Math.floor(Math.random() * max));
   $goto('/store/info');
 };
@@ -27,7 +27,7 @@ const handleClick = () => {
   let:hidden
   let:toggle
   color="form"
-  navClass="px-2 py-1 w-full left-0 border-b fixed z-40"
+  navClass="px-2 py-1 w-full left-0 border-b"
   navDivClass="flex flex-wrap justify-between items-center">
   <NavBrand>
     <a href={$url('/')} class="flex">
