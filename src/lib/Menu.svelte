@@ -1,7 +1,7 @@
 <script lang="ts">
 //@ts-nocheck
 import { Navbar, NavBrand, NavUl, NavLi, Chevron, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
-import { inns, storeId } from '../stores/stores';
+import { inns, storeId, tempIdx } from '../stores/stores';
 import { get } from 'svelte/store';
 import { goto, url } from '@roxi/routify';
 
@@ -18,9 +18,20 @@ const menu = [
 
 let max = get(inns).length;
 const handleClick = async () => {
-  storeId.set(Math.floor(Math.random() * max));
+  const ary = get(tempIdx);
+  let storeIdx = -1;
+  do {
+    storeIdx = Math.floor(Math.random() * max);
+  } while (ary.indexOf(storeIdx) > -1);
+  storeId.set(storeIdx);
+  tempIdx.update((v) => [...v, storeIdx]);
   $goto('/store/info');
 };
+tempIdx.subscribe((array) => {
+  if (array.length >= max) {
+    tempIdx.set([]);
+  }
+});
 </script>
 
 <Navbar

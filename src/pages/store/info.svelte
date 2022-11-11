@@ -1,6 +1,7 @@
 <script lang="ts">
 import { List, Li, Span, Kbd } from 'flowbite-svelte';
 import { onMount } from 'svelte';
+import _ from 'lodash';
 import { get } from 'svelte/store';
 import { storeId, inns } from '../../stores/stores';
 import StarRating from '../../lib/Rating.svelte';
@@ -34,8 +35,8 @@ onMount(() => {
       <List tag="ul">
         <Li class="flex"><Span class="mr-2">效率:</Span><StarRating rating={store.speed} /></Li>
         <Li class="flex"><Span class="mr-2">美味:</Span><StarRating rating={store.delicious} /></Li>
-        <Li class="flex"><Span class="mr-2">距離:</Span>{store.distance}</Li>
-        <Li class="flex"><Span class="mr-2">路程:</Span>{store.time}</Li>
+        <Li class="flex"><Span class="mr-2">距離:</Span>{store.distance} 公尺</Li>
+        <Li class="flex"><Span class="mr-2">路程:</Span>{_.ceil(store.time / 60)} 分鐘</Li>
       </List>
     </div>
     <div class="flex justify-center">

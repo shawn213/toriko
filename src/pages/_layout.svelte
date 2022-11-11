@@ -15,7 +15,7 @@ showMsg.subscribe((value) => {
 <div class="w-full left-0 fixed z-40 block">
   <Menu />
   {#if message}
-    <div class="pt-12 w-full fixed">
+    <div class="w-full fixed mt-2">
       <Alert accent dismissable on:close={handleClose}>{message}</Alert>
     </div>
   {/if}

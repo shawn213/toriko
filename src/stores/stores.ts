@@ -3,6 +3,7 @@ import moment from "moment";
 import Api from '../utils/Api';
 
 export const inns = writable([]);
+export const tempIdx = writable([]);
 export const storeId = writable(0);
 export const progress = writable(0);
 export const showMsg = writable('');
