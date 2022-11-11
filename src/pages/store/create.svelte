@@ -86,7 +86,24 @@ function formSubmit() {
 }
 </script>
 
-<div class="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
+<div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-4">
+  <div class="block w-96">
+    <List tag="ul" list="decimal" class="space-y-1 mb-2 w-96">
+      <Li>
+        <Span class="mr-1">在 Mac 或 Windows 電腦上開啟</Span>
+        <a
+          href="https://www.google.com/maps/@22.6132182,120.2939619,18z"
+          target="_block"
+          class="inline-flex items-center font-medium hover:underline dark:text-blue-400">
+          Google地圖網頁版
+        </a>
+        <Span>。</Span>
+      </Li>
+      <Li><Span>在地圖上針對某地點或地標按一下滑鼠右鍵。</Span></Li>
+      <Li><Span>點選第一個「經緯度」選項即可複製該地點的座標。</Span></Li>
+    </List>
+    <Img src="https://i.imgur.com/YjYwY1I.png" alt="sample 1" size="max-w-full" class="rounded-lg p-0" />
+  </div>
   <div class="flex">
     <Form class="w-96 h-96" {schema} {fields} submitHandler={formSubmit} {submitted}>
       <List tag="ul" list="none" class="space-y-2 mb-2">
@@ -131,21 +148,4 @@ function formSubmit() {
       <Button type="submit" disabled={isValid} class="w-full my-1" outline color="purple">送出</Button>
     </Form>
   </div>
-  <!-- <div class="block">
-    <List tag="ul" list="decimal" class="space-y-1 mb-2">
-      <Li>
-        <Span class="mr-1">在 Mac 或 Windows 電腦上開啟</Span>
-        <a
-          href="https://www.google.com/maps/@22.6132182,120.2939619,18z"
-          target="_block"
-          class="inline-flex items-center font-medium hover:underline dark:text-blue-400">
-          Google地圖網頁版
-        </a>
-        <Span>。</Span>
-      </Li>
-      <Li><Span>在地圖上針對某地點或地標按一下滑鼠右鍵。</Span></Li>
-      <Li><Span>點選第一個「經緯度」選項即可複製該地點的座標。</Span></Li>
-    </List>
-    <Img src="https://i.imgur.com/YjYwY1I.png" alt="sample 1" size="max-w-lg" class="rounded-lg" />
-  </div> -->
 </div>
