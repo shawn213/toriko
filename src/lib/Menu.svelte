@@ -56,5 +56,6 @@ tempIdx.subscribe((array) => {
     <MegaMenu items={menu} let:item class="block">
       <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
     </MegaMenu>
+    <NavLi href={$url('/tools/draw')}>抽籤</NavLi>
   </NavUl>
 </Navbar>
