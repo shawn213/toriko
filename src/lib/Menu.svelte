@@ -47,7 +47,7 @@ tempIdx.subscribe((array) => {
     </a>
   </NavBrand>
   <div class="flex md:order-2">
-    <Button on:click={handleClick} size="xs" outline>隨選</Button>
+    <Button on:click={handleClick} size="xs" gradient color="lime">隨選</Button>
     <NavHamburger on:click={toggle} />
   </div>
   <NavUl {hidden} class="md:order-1">

@@ -21,7 +21,7 @@ let activities = [
     src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',
   },
   {
-    title: '加入新增車位抽籤功能',
+    title: '加入新增配對抽籤功能',
     date: '2022/12/11',
     alt: 'image alt here',
     src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',

@@ -7,7 +7,7 @@ export const tempIdx = writable([]);
 export const storeId = writable(0);
 export const progress = writable(0);
 export const showMsg = writable('');
-const date = moment().format('DD');
+const date = moment().format('DDHH');
 let stores = JSON.parse(localStorage.getItem('stores'));
 if (!stores || stores.date !== date) {
 	const res = await Api.get(`${import.meta.env.VITE_API_URL}?method=findAllStore`);
