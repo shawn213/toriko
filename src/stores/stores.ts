@@ -1,20 +1,34 @@
 import { writable } from "svelte/store";
 import moment from "moment";
 import Api from '../utils/Api';
+import * as Encoding from '../utils/Encoding';
 
 export const inns = writable([]);
 export const tempIdx = writable([]);
 export const storeId = writable(0);
 export const progress = writable(0);
 export const showMsg = writable('');
+export const holidays = writable([]);
 const date = moment().format('DDHH');
 let stores = JSON.parse(localStorage.getItem('stores'));
 if (!stores || stores.date !== date) {
-	const res = await Api.get(`${import.meta.env.VITE_API_URL}?method=findAllStore`);
+  const token = Encoding.crypto('wwmc59', 'findAllStore');
+	const res = await Api.get(`${import.meta.env.VITE_API_URL}?token=${token}`);
 	const { message, data } = res.data;
 	if (!message) {
 		stores = { stores: data, date };
 		localStorage.setItem('stores', JSON.stringify(stores));
 	}
 }
+let hs = JSON.parse(localStorage.getItem('holiday'));
+if (!hs || hs.date !== moment().format('YYYYMM')) {
+  const token = Encoding.crypto('wwmc59', 'findAllHoliday');
+  const res = await Api.get(`${import.meta.env.VITE_API_URL}?token=${token}`);
+  const { data } = res;
+  if (data.result.length > 0) {
+    hs = { days: data.result, date: moment().format('YYYYMM') }
+    localStorage.setItem('holiday', JSON.stringify(hs));
+  }
+}
+holidays.set(hs.days);
 inns.set(stores.stores);

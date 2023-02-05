@@ -1,36 +1,66 @@
 <script lang="ts">
-import { Activity, ActivityItem } from 'flowbite-svelte';
+import { onMount } from 'svelte';
+import Countdown from 'svelte-countdown/src';
+import { Span } from 'flowbite-svelte';
+import { holidays } from '../stores/stores';
+import { get } from 'svelte/store';
+import moment from 'moment';
+$: holiday = [];
 
-let activities = [
-  {
-    title: '網頁建立成功',
-    date: '2022/10/24',
-    alt: 'image alt here',
-    src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',
-  },
-  {
-    title: '加入隨選功能',
-    date: '2022/10/29',
-    alt: 'image alt here',
-    src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',
-  },
-  {
-    title: '加入新增店家功能',
-    date: '2022/11/02',
-    alt: 'image alt here',
-    src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',
-  },
-  {
-    title: '加入新增配對抽籤功能',
-    date: '2022/12/11',
-    alt: 'image alt here',
-    src: 'https://rd.fharr.com/assets/sprite/%EB%AA%AC%EC%8A%A4%ED%84%B0/idle/angeling.gif',
-  },
-];
+onMount(() => {
+  const now = moment();
+  const weekDayToFind = now.clone().day('Friday').weekday(); //change to searched day name
+  const nextFriday = now.clone(); //now or change to any date
+  while (nextFriday.weekday() !== weekDayToFind) {
+    nextFriday.add(1, 'day');
+  }
+  const hs = get(holidays);
+  let nextHoliday_str = hs.find((h) => moment(h, 'YYYY-MM-DD').isAfter(now));
+
+  if (nextFriday.isBefore(moment(`${nextHoliday_str}`, 'YYYY-MM-DD'))) {
+    holiday.push({
+      date: nextFriday.format('YYYY-MM-DD'),
+      title: `距離下一個周末`,
+    });
+  }
+
+  const nextHoliday = moment(`${nextHoliday_str}`, 'YYYY-MM-DD');
+  const prefHoliday = nextHoliday.clone().add(-1, 'day');
+  while (prefHoliday.weekday() === 0 || prefHoliday.weekday() === 6) {
+    prefHoliday.add(-1, 'day');
+  }
+
+  holiday.push({
+    date: prefHoliday.format('YYYY-MM-DD'),
+    title: `距離下一個國定假日 ${nextHoliday.format('YYYY-MM-DD')}`,
+  });
+  holiday = holiday;
+});
 </script>
 
 <div class="block">
-  <Activity>
-    <ActivityItem {activities} />
-  </Activity>
+  {#if holiday.length > 0}
+    {#each holiday as h}
+      <Countdown from={`${h.date} 18:20:00`} dateFormat="YYYY-MM-DD H:m:s" zone="Asia/Taipei" let:remaining>
+        <div class="block">
+          <div class="dark:text-white text-xl">{h.title}</div>
+          <div class="whatever">
+            {#if remaining.done === false}
+              {#if remaining.months > 0}
+                <Span class="text-xl">{remaining.months} 月</Span>
+              {/if}
+              {#if remaining.days > 0}
+                <Span class="text-xl">{remaining.days} 天</Span>
+              {/if}
+              <Span class="text-xl">{remaining.hours} 小時</Span>
+              <Span class="text-xl">{remaining.minutes} 分</Span>
+              <Span class="text-xl">{remaining.seconds} 秒</Span>
+            {:else}
+              <h2>The time has come!</h2>
+            {/if}
+          </div>
+        </div>
+      </Countdown>
+    {/each}
+  {/if}
 </div>

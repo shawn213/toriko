@@ -40,6 +40,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "prettier-plugin-svelte": "^2.8.0",
+    "svelte-countdown": "^1.1.2",
     "svelte-routing": "^1.6.0",
     "svelte-star-rating": "^2.0.1",
     "yup": "^0.32.11"

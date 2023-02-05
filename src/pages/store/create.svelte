@@ -19,6 +19,7 @@ import {
 import StarRating from '../../lib/Rating.svelte';
 import Map from '../../lib/Map.svelte';
 import { inns, showMsg } from '../../stores/stores';
+import * as Encoding from '../../utils/Encoding';
 let lat = 22.611624148667726;
 let lng = 120.29340837137883;
 let checkPoint = 'no';
@@ -71,7 +72,8 @@ function formSubmit() {
   submitted = true;
   isValid = schema.isValidSync(fields);
   if (isValid) {
-    let urlParameters = Object.entries({ ...fields, method: 'writeTempStore' })
+    const token = Encoding.crypto('wwmc59', 'writeTempStore');
+    let urlParameters = Object.entries({ ...fields, token })
       .map((e) => e.join('='))
       .join('&');
     axios.get(import.meta.env.VITE_API_URL + `?${urlParameters}`).then((res) => {
