@@ -12,7 +12,7 @@ export const holidays = writable([]);
 const date = moment().format('DDHH');
 let stores = JSON.parse(localStorage.getItem('stores'));
 if (!stores || stores.date !== date) {
-  const token = Encoding.crypto('wwmc59', 'findAllStore');
+  const token = Encoding.crypto('wwmc59', `findAllStore_${moment().format('YYYYMMDDHHmmss')}`);
 	const res = await Api.get(`${import.meta.env.VITE_API_URL}?token=${token}`);
 	const { message, data } = res.data;
 	if (!message) {
@@ -21,12 +21,12 @@ if (!stores || stores.date !== date) {
 	}
 }
 let hs = JSON.parse(localStorage.getItem('holiday'));
-if (!hs || hs.date !== moment().format('YYYYMM')) {
-  const token = Encoding.crypto('wwmc59', 'findAllHoliday');
+if (!hs || hs.date !== moment().format('YYYYMMDD')) {
+  const token = Encoding.crypto('wwmc59', `findAllHoliday_${moment().format('YYYYMMDDHHmmss')}`);
   const res = await Api.get(`${import.meta.env.VITE_API_URL}?token=${token}`);
   const { data } = res;
   if (data.result.length > 0) {
-    hs = { days: data.result, date: moment().format('YYYYMM') }
+    hs = { days: data.result, date: moment().format('YYYYMMDD') }
     localStorage.setItem('holiday', JSON.stringify(hs));
   }
 }

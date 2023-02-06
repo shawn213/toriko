@@ -20,6 +20,7 @@ import StarRating from '../../lib/Rating.svelte';
 import Map from '../../lib/Map.svelte';
 import { inns, showMsg } from '../../stores/stores';
 import * as Encoding from '../../utils/Encoding';
+import moment from "moment";
 let lat = 22.611624148667726;
 let lng = 120.29340837137883;
 let checkPoint = 'no';
@@ -72,7 +73,7 @@ function formSubmit() {
   submitted = true;
   isValid = schema.isValidSync(fields);
   if (isValid) {
-    const token = Encoding.crypto('wwmc59', 'writeTempStore');
+    const token = Encoding.crypto('wwmc59', `writeTempStore_${moment().format('YYYYMMDDHHmmss')}`);
     let urlParameters = Object.entries({ ...fields, token })
       .map((e) => e.join('='))
       .join('&');
@@ -104,7 +105,7 @@ function formSubmit() {
       <Li><Span>在地圖上針對某地點或地標按一下滑鼠右鍵。</Span></Li>
       <Li><Span>點選第一個「經緯度」選項即可複製該地點的座標。</Span></Li>
     </List>
-    <Img src="https://i.imgur.com/YjYwY1I.png" alt="sample 1" size="max-w-full" class="rounded-lg p-0" />
+    <Img src="https://i.imgur.com/YjYwY1I.png" alt="sample 1" size="w-96" class="rounded-lg p-0" />
   </div>
   <div class="flex">
     <Form class="w-96 h-96" {schema} {fields} submitHandler={formSubmit} {submitted}>

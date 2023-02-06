@@ -1,11 +1,12 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 import Countdown from 'svelte-countdown/src';
-import { Span } from 'flowbite-svelte';
+import { Span, Heading } from 'flowbite-svelte';
 import { holidays } from '../stores/stores';
 import { get } from 'svelte/store';
 import moment from 'moment';
 $: holiday = [];
+$: isHoliday = false;
 
 onMount(() => {
   const now = moment();
@@ -15,16 +16,16 @@ onMount(() => {
     nextFriday.add(1, 'day');
   }
   const hs = get(holidays);
-  let nextHoliday_str = hs.find((h) => moment(h, 'YYYY-MM-DD').isAfter(now));
+  const nextHoliday_obj = hs.find((h) => moment(h.date, 'YYYY-MM-DD').isAfter(now));
 
-  if (nextFriday.isBefore(moment(`${nextHoliday_str}`, 'YYYY-MM-DD'))) {
+  if (nextFriday.isBefore(moment(`${nextHoliday_obj.date}`, 'YYYY-MM-DD'))) {
     holiday.push({
       date: nextFriday.format('YYYY-MM-DD'),
       title: `距離下一個周末`,
     });
   }
 
-  const nextHoliday = moment(`${nextHoliday_str}`, 'YYYY-MM-DD');
+  const nextHoliday = moment(`${nextHoliday_obj.date}`, 'YYYY-MM-DD');
   const prefHoliday = nextHoliday.clone().add(-1, 'day');
   while (prefHoliday.weekday() === 0 || prefHoliday.weekday() === 6) {
     prefHoliday.add(-1, 'day');
@@ -32,7 +33,7 @@ onMount(() => {
 
   holiday.push({
     date: prefHoliday.format('YYYY-MM-DD'),
-    title: `距離下一個國定假日 ${nextHoliday.format('YYYY-MM-DD')}`,
+    title: `距離下一個國定假日 ${nextHoliday_obj.name}`,
   });
   holiday = holiday;
 });
@@ -56,7 +57,9 @@ onMount(() => {
               <Span class="text-xl">{remaining.minutes} 分</Span>
               <Span class="text-xl">{remaining.seconds} 秒</Span>
             {:else}
-              <h2>The time has come!</h2>
+              {#if isHoliday}
+                <Heading tag="h2">The time has come!</Heading>
+              {/if}
             {/if}
           </div>
         </div>
