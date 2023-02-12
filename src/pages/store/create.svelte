@@ -20,7 +20,7 @@ import StarRating from '../../lib/Rating.svelte';
 import Map from '../../lib/Map.svelte';
 import { inns, showMsg } from '../../stores/stores';
 import * as Encoding from '../../utils/Encoding';
-import moment from "moment";
+import moment from 'moment';
 let lat = 22.611624148667726;
 let lng = 120.29340837137883;
 let checkPoint = 'no';
@@ -73,7 +73,7 @@ function formSubmit() {
   submitted = true;
   isValid = schema.isValidSync(fields);
   if (isValid) {
-    const token = Encoding.crypto('wwmc59', `writeTempStore_${moment().format('YYYYMMDDHHmmss')}`);
+    const token = Encoding.crypto(import.meta.env.VITE_API_SALT, `writeTempStore_${moment().format('YYYYMMDDHHmmss')}`);
     let urlParameters = Object.entries({ ...fields, token })
       .map((e) => e.join('='))
       .join('&');

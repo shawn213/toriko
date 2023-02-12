@@ -22,6 +22,7 @@ specifiers:
   svelte: ^3.49.0
   svelte-check: ^2.8.1
   svelte-countdown: ^1.1.2
+  svelte-loading-spinners: ^0.3.4
   svelte-preprocess: ^4.10.7
   svelte-routing: ^1.6.0
   svelte-star-rating: ^2.0.1
@@ -59,6 +60,7 @@ devDependencies:
   prettier: 2.7.1
   svelte: 3.52.0
   svelte-check: 2.9.2_xyvwwpusdp7eiuesisaivc7wmm
+  svelte-loading-spinners: 0.3.4
   svelte-preprocess: 4.10.7_4n3z2octtzg5pdokl7pjruqnki
   svelte-yup: 1.0.5
   tailwindcss: 3.1.8_postcss@8.4.18
@@ -2188,6 +2190,10 @@ packages:
       svelte: '>=3.19.0'
     dependencies:
       svelte: 3.52.0
+    dev: true
+
+  /svelte-loading-spinners/0.3.4:
+    resolution: {integrity: sha512-vKaW71QMCBcTNijAGc0mUl8k3DQ66iYmp6MB8BMGCXyWk82bTrcLy8FOnSm9fE+8q6TwzD6PLUoYFHt0II93Xw==}
     dev: true
 
   /svelte-preprocess/4.10.7_4n3z2octtzg5pdokl7pjruqnki:

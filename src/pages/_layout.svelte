@@ -1,7 +1,8 @@
 <script lang="ts">
 import { Alert } from 'flowbite-svelte';
-import { showMsg } from '../stores/stores';
+import { showMsg, loading } from '../stores/stores';
 import Menu from '../lib/Menu.svelte';
+import Loading from '../lib/Loading.svelte';
 
 let message = undefined;
 const handleClose = () => {
@@ -10,8 +11,15 @@ const handleClose = () => {
 showMsg.subscribe((value) => {
   message = value;
 });
+let isLoading = true;
+loading.subscribe((value) => {
+  isLoading = value;
+});
 </script>
 
+{#if isLoading}
+<Loading />
+{/if}
 <div class="w-full left-0 fixed z-40 block">
   <Menu />
   {#if message}

@@ -1,6 +1,7 @@
 <script lang="ts">
 //@ts-nocheck
 import { Navbar, NavBrand, NavUl, NavLi, Chevron, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
+import { onMount } from 'svelte';
 import { inns, storeId, tempIdx } from '../stores/stores';
 import { get } from 'svelte/store';
 import { goto, url } from '@roxi/routify';
@@ -13,6 +14,17 @@ const menu = [
   {
     name: '新增店家',
     href: '/store/create',
+  },
+];
+
+const delivery = [
+  {
+    name: '隨選',
+    href: '/delivery',
+  },
+  {
+    name: '新增店家',
+    href: '/delivery/create',
   },
 ];
 
@@ -47,13 +59,17 @@ tempIdx.subscribe((array) => {
     </a>
   </NavBrand>
   <div class="flex md:order-2">
-    <Button on:click={handleClick} size="xs" gradient color="lime">隨選</Button>
+    <Button on:click={handleClick} size="lg" gradient color="lime">隨選</Button>
     <NavHamburger on:click={toggle} />
   </div>
   <NavUl {hidden} class="md:order-1">
     <NavLi href={$url('/')}>Home</NavLi>
     <NavLi><Chevron aligned>附近</Chevron></NavLi>
     <MegaMenu items={menu} let:item class="block">
+      <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
+    </MegaMenu>
+    <NavLi><Chevron aligned>外送</Chevron></NavLi>
+    <MegaMenu items={delivery} let:item class="block">
       <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
     </MegaMenu>
     <NavLi href={$url('/tools/draw')}>抽籤</NavLi>
