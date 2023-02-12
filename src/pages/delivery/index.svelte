@@ -11,6 +11,7 @@ let delivery = { storeName: '', nickName: '', platform: '', nickPlatform: '', ur
 const platforms = {
   'Uber Eats': 'https://i.imgur.com/5BtSyH4.png',
   Nidin: 'https://i.imgur.com/t9jLO0O.png',
+  foodpanda: 'https://i.imgur.com/PnN0rJa.jpg',
 };
 
 interface IDelivery {
