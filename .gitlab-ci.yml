@@ -7,6 +7,7 @@ pages:
   script:
     - pnpm i
     - echo VITE_API_URL=$VITE_API_URL >> .env
+    - echo VITE_API_SALT=$VITE_API_SALT >> .env
     - echo $VITE_API_URL
     - pnpm build
     - cp -a dist/. public/
