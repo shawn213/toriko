@@ -1,10 +1,11 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import { Span, ButtonGroup, Button, Card, Kbd, Avatar, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, TableSearch } from 'flowbite-svelte';
+import { Span, ButtonGroup, Button, Card, Kbd, Avatar, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, TableSearch } from 'flowbite-svelte';
 import * as e from '../../utils/Encoding';
 import moment from 'moment';
 import axios from '../../utils/Api';
 import { loading } from '../../stores/stores';
+import StarRating from '../../lib/Rating.svelte';
 
 let delivery = { storeName: '', nickName: '', platform: '', nickPlatform: '', url: '', tags: '' };
 
@@ -27,6 +28,7 @@ interface IDelivery {
 
 let drinks: IDelivery[] = [];
 let lunchs: IDelivery[] = [];
+let ds: IDelivery[] = [];
 
 onMount(async () => {
   loading.set(true);
@@ -40,20 +42,11 @@ onMount(async () => {
         drinks.push(d);
       } else {
         lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
-        lunchs.push(d);
       }
     });
     drinks = drinks;
     lunchs = lunchs;
+    ds = deliverys;
   }
   loading.set(false);
 });
@@ -70,14 +63,10 @@ const handleClick = (type: string) => {
   }
 };
 
-let searchDrinks: string = '';
-let searchLunchs: string = '';
+let searchTerm: string = '';
 
-$: filteredDrinks = drinks.filter(
-  (item) => item.storeName.toLowerCase().indexOf(searchDrinks.toLowerCase()) !== -1
-);
-$: filteredLunchs = lunchs.filter(
-  (item) => item.storeName.toLowerCase().indexOf(searchLunchs.toLowerCase()) !== -1
+$: filteredDelivery = ds.filter(
+  (item) => item.storeName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
 );
 </script>
 
@@ -114,9 +103,10 @@ $: filteredLunchs = lunchs.filter(
       </Card>
     </div>
   {/if}
-  <div class="max-h-52 overflow-y-auto">
-    <TableSearch placeholder="Search by maker name" hoverable={true} bind:inputValue={searchDrinks}>
+  <div class="max-h-96 overflow-y-auto">
+    <TableSearch placeholder="Search by maker name" hoverable={true} bind:inputValue={searchTerm}>
       <TableHead>
+        <TableHeadCell>類別</TableHeadCell>
         <TableHeadCell>名稱</TableHeadCell>
         <TableHeadCell>簡稱</TableHeadCell>
         <TableHeadCell>美味</TableHeadCell>
@@ -124,36 +114,17 @@ $: filteredLunchs = lunchs.filter(
         <TableHeadCell>連結</TableHeadCell>
       </TableHead>
       <TableBody class="divide-y">
-        {#each filteredDrinks as item}
+        {#each filteredDelivery as item}
           <TableBodyRow>
+            <TableBodyCell>{item.type === 'Drink' ? '飲料' : '午餐'}</TableBodyCell>
             <TableBodyCell>{item.storeName}</TableBodyCell>
             <TableBodyCell>{item.nickName}</TableBodyCell>
-            <TableBodyCell>{item.delicious}</TableBodyCell>
-            <TableBodyCell>{item.nickPlatform}</TableBodyCell>
             <TableBodyCell>
-              <Button on:click={() => openLink(item.url)}>連結</Button>
+              <StarRating rating={item.delicious} />
             </TableBodyCell>
-          </TableBodyRow>
-        {/each}
-      </TableBody>
-    </TableSearch>
-  </div>
-  <div class="max-h-52 overflow-y-auto">
-    <TableSearch placeholder="Search by maker name" hoverable={true} bind:inputValue={searchLunchs}>
-      <TableHead>
-        <TableHeadCell>名稱</TableHeadCell>
-        <TableHeadCell>簡稱</TableHeadCell>
-        <TableHeadCell>美味</TableHeadCell>
-        <TableHeadCell>平台</TableHeadCell>
-        <TableHeadCell>連結</TableHeadCell>
-      </TableHead>
-      <TableBody class="divide-y">
-        {#each filteredLunchs as item}
-          <TableBodyRow>
-            <TableBodyCell>{item.storeName}</TableBodyCell>
-            <TableBodyCell>{item.nickName}</TableBodyCell>
-            <TableBodyCell>{item.delicious}</TableBodyCell>
-            <TableBodyCell>{item.nickPlatform}</TableBodyCell>
+            <TableBodyCell>
+              <Avatar src={platforms[item.platform]} />
+            </TableBodyCell>
             <TableBodyCell>
               <Button on:click={() => openLink(item.url)}>連結</Button>
             </TableBodyCell>
