@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import { Span, ButtonGroup, Button, Card, Kbd, Avatar } from 'flowbite-svelte';
+import { Span, ButtonGroup, Button, Card, Kbd, Avatar, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, TableSearch } from 'flowbite-svelte';
 import * as e from '../../utils/Encoding';
 import moment from 'moment';
 import axios from '../../utils/Api';
@@ -25,8 +25,8 @@ interface IDelivery {
   url: string;
 }
 
-const drinks: IDelivery[] = [];
-const lunchs: IDelivery[] = [];
+let drinks: IDelivery[] = [];
+let lunchs: IDelivery[] = [];
 
 onMount(async () => {
   loading.set(true);
@@ -40,8 +40,20 @@ onMount(async () => {
         drinks.push(d);
       } else {
         lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
+        lunchs.push(d);
       }
     });
+    drinks = drinks;
+    lunchs = lunchs;
   }
   loading.set(false);
 });
@@ -57,6 +69,16 @@ const handleClick = (type: string) => {
     delivery = drinks[Math.floor(Math.random() * drinks.length)];
   }
 };
+
+let searchDrinks: string = '';
+let searchLunchs: string = '';
+
+$: filteredDrinks = drinks.filter(
+  (item) => item.storeName.toLowerCase().indexOf(searchDrinks.toLowerCase()) !== -1
+);
+$: filteredLunchs = lunchs.filter(
+  (item) => item.storeName.toLowerCase().indexOf(searchLunchs.toLowerCase()) !== -1
+);
 </script>
 
 <div class="block">
@@ -71,7 +93,7 @@ const handleClick = (type: string) => {
       <Span>叫 {delivery.nickPlatform} 幫你送~</Span>
     </div>
     <div class="flex justify-center">
-      <Card padding="sm" class="m-4">
+      <Card padding="sm" class="m-4 w-80">
         <div class="flex flex-col items-center pb-4">
           <Avatar size="lg" src={platforms[delivery.platform]} />
           <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{delivery.storeName}</h5>
@@ -92,4 +114,52 @@ const handleClick = (type: string) => {
       </Card>
     </div>
   {/if}
+  <div class="max-h-52 overflow-y-auto">
+    <TableSearch placeholder="Search by maker name" hoverable={true} bind:inputValue={searchDrinks}>
+      <TableHead>
+        <TableHeadCell>名稱</TableHeadCell>
+        <TableHeadCell>簡稱</TableHeadCell>
+        <TableHeadCell>美味</TableHeadCell>
+        <TableHeadCell>平台</TableHeadCell>
+        <TableHeadCell>連結</TableHeadCell>
+      </TableHead>
+      <TableBody class="divide-y">
+        {#each filteredDrinks as item}
+          <TableBodyRow>
+            <TableBodyCell>{item.storeName}</TableBodyCell>
+            <TableBodyCell>{item.nickName}</TableBodyCell>
+            <TableBodyCell>{item.delicious}</TableBodyCell>
+            <TableBodyCell>{item.nickPlatform}</TableBodyCell>
+            <TableBodyCell>
+              <Button on:click={() => openLink(item.url)}>連結</Button>
+            </TableBodyCell>
+          </TableBodyRow>
+        {/each}
+      </TableBody>
+    </TableSearch>
+  </div>
+  <div class="max-h-52 overflow-y-auto">
+    <TableSearch placeholder="Search by maker name" hoverable={true} bind:inputValue={searchLunchs}>
+      <TableHead>
+        <TableHeadCell>名稱</TableHeadCell>
+        <TableHeadCell>簡稱</TableHeadCell>
+        <TableHeadCell>美味</TableHeadCell>
+        <TableHeadCell>平台</TableHeadCell>
+        <TableHeadCell>連結</TableHeadCell>
+      </TableHead>
+      <TableBody class="divide-y">
+        {#each filteredLunchs as item}
+          <TableBodyRow>
+            <TableBodyCell>{item.storeName}</TableBodyCell>
+            <TableBodyCell>{item.nickName}</TableBodyCell>
+            <TableBodyCell>{item.delicious}</TableBodyCell>
+            <TableBodyCell>{item.nickPlatform}</TableBodyCell>
+            <TableBodyCell>
+              <Button on:click={() => openLink(item.url)}>連結</Button>
+            </TableBodyCell>
+          </TableBodyRow>
+        {/each}
+      </TableBody>
+    </TableSearch>
+  </div>
 </div>
