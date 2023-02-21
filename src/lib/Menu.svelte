@@ -19,7 +19,7 @@ const menu = [
 
 const delivery = [
   {
-    name: '隨選',
+    name: '列表',
     href: '/delivery',
   },
   {
