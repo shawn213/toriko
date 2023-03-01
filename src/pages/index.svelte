@@ -16,7 +16,7 @@ onMount(() => {
     nextFriday.add(1, 'day');
   }
   const hs = get(holidays);
-  const nextHoliday_obj = hs.find((h) => moment(h.date, 'YYYY-MM-DD').isAfter(now));
+  const nextHoliday_obj = hs.find((h) => moment(h.date, 'YYYY-MM-DD').isAfter(now) && h.name !== '國定假日' && h.name !== '兒童節');
 
   if (nextFriday.isBefore(moment(`${nextHoliday_obj.date}`, 'YYYY-MM-DD'))) {
     holiday.push({
@@ -27,7 +27,7 @@ onMount(() => {
 
   const nextHoliday = moment(`${nextHoliday_obj.date}`, 'YYYY-MM-DD');
   const prefHoliday = nextHoliday.clone().add(-1, 'day');
-  while (prefHoliday.weekday() === 0 || prefHoliday.weekday() === 6) {
+  while (prefHoliday.weekday() === 0 || prefHoliday.weekday() === 6 || hs.filter((h) => h.date === prefHoliday.format('YYYY-MM-DD')).length > 0) {
     prefHoliday.add(-1, 'day');
   }
 

@@ -1,7 +1,6 @@
 <script lang="ts">
 //@ts-nocheck
 import { Navbar, NavBrand, NavUl, NavLi, Chevron, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
-import { onMount } from 'svelte';
 import { inns, storeId, tempIdx } from '../stores/stores';
 import { get } from 'svelte/store';
 import { goto, url } from '@roxi/routify';
