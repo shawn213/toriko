@@ -1,12 +1,12 @@
 <script lang="ts">
 import { List, Li, Span, Kbd } from 'flowbite-svelte';
-import { onMount } from 'svelte';
+import { onMount, onDestroy } from 'svelte';
 import _ from 'lodash';
 import { get } from 'svelte/store';
-import { storeId, inns } from '../../stores/stores';
+import { storeId, inns, tempIdx } from '../../stores/stores';
 import StarRating from '../../lib/Rating.svelte';
 import Map from '../../lib/Map.svelte';
-$: idx = 0;
+$: idx = -1;
 let store: any;
 $: stores = get(inns);
 onMount(() => {
@@ -17,11 +17,21 @@ onMount(() => {
       setTimeout(() => (store = stores[value]), 0);
     }
   });
+  if (stores.length > 0) {
+    const max = stores.length;
+    const ary = get(tempIdx);
+    let storeIdx = -1;
+    do {
+      storeIdx = Math.floor(Math.random() * max);
+    } while (ary.indexOf(storeIdx) > -1);
+    storeId.set(storeIdx);
+    tempIdx.update((v) => [...v, storeIdx]);
+  }
 });
 </script>
 
 <div class="block">
-  {#if store}
+  {#if idx > -1 && store}
     <div class="flex justify-center">
       <div class="font-black text-2xl dark:text-white">{store.storeName}</div>
       {#if store.nickName}

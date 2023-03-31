@@ -5,7 +5,7 @@ import * as Encoding from '../utils/Encoding';
 
 export const inns = writable([]);
 export const tempIdx = writable([]);
-export const storeId = writable(0);
+export const storeId = writable(-1);
 export const progress = writable(0);
 export const showMsg = writable('');
 export const holidays = writable([]);

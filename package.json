@@ -44,6 +44,7 @@
     "svelte-countdown": "^1.1.2",
     "svelte-routing": "^1.6.0",
     "svelte-star-rating": "^2.0.1",
+    "svelty-picker": "^3.4.6",
     "yup": "^0.32.11"
   }
 }
