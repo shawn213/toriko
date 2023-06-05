@@ -16,17 +16,6 @@ const menu = [
   },
 ];
 
-const delivery = [
-  {
-    name: '列表',
-    href: '/delivery',
-  },
-  {
-    name: '新增店家',
-    href: '/delivery/create',
-  },
-];
-
 let max = get(inns).length;
 const handleClick = async () => {
   const ary = get(tempIdx);
@@ -65,10 +54,6 @@ tempIdx.subscribe((array) => {
     <NavLi href={$url('/')}>Home</NavLi>
     <NavLi><Chevron aligned>附近</Chevron></NavLi>
     <MegaMenu items={menu} let:item class="block">
-      <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
-    </MegaMenu>
-    <NavLi><Chevron aligned>外送</Chevron></NavLi>
-    <MegaMenu items={delivery} let:item class="block">
       <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
     </MegaMenu>
     <NavLi href={$url('/tools/draw')}>抽籤</NavLi>
