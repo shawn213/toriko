@@ -16,6 +16,17 @@ const menu = [
   },
 ];
 
+const tools = [
+  {
+    name: '抽籤',
+    href: '/tools/draw',
+  },
+  {
+    name: '加解密',
+    href: '/tools/encrypt',
+  },
+];
+
 let max = get(inns).length;
 const handleClick = async () => {
   const ary = get(tempIdx);
@@ -56,6 +67,9 @@ tempIdx.subscribe((array) => {
     <MegaMenu items={menu} let:item class="block">
       <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
     </MegaMenu>
-    <NavLi href={$url('/tools/draw')}>抽籤</NavLi>
+    <NavLi><Chevron aligned>線上工具</Chevron></NavLi>
+    <MegaMenu items={tools} let:item class="block">
+      <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
+    </MegaMenu>
   </NavUl>
 </Navbar>
