@@ -7,7 +7,7 @@ import { get } from 'svelte/store';
 import moment from 'moment';
 import SveltyPicker from 'svelty-picker';
 import _ from 'lodash';
-import { add } from 'lodash';
+
 $: holiday = [];
 $: isHoliday = false;
 $: date = '';
