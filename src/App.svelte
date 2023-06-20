@@ -9,8 +9,8 @@ const config = {
   },
 };
 onMount(() => {
-  if (!window.location.href.endsWith('/#/')){
-    window.location.href = '/#/';
+  if (!window.location.href.endsWith('/toriko/#/')){
+    window.location.href = '/toriko/#/';
   }
 });
 </script>
