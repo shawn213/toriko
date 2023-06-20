@@ -9,7 +9,7 @@ const config = {
   },
 };
 onMount(() => {
-  if (!window.location.href.endsWith('/toriko/#/')){
+  if (window.location.href.search('/toriko/#/') === -1){
     window.location.href = '/toriko/#/';
   }
 });
