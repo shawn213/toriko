@@ -10,11 +10,14 @@ import {
 import _ from 'lodash';
 import Rabbit from 'crypto-js/rabbit';
 import encUtf8 from 'crypto-js/enc-utf8';
+import jwt_decode from 'jwt-decode';
+import { Base64 } from 'js-base64';
 
 const rows: number = 10;
 const encrypts = [
   {value:"default", name: "default"},
   {value:"base64", name: "base64"},
+  {value:"jwt", name: "jwt"},
 ];
 let toggle: boolean = false;
 let content: string = '';
@@ -25,6 +28,13 @@ let selected: string = 'default';
 let buttonText: string = '解密';
 let contentText = '密文';
 let contentPlaceholder = '例: U2FsdGVkX18cbHi2CxrSUnAEhwx+0g==';
+let disabled = false;
+$: if (selected === 'jwt') {
+  toggle = true;
+  disabled = true;
+} else {
+  disabled = false;
+}
 $: if (toggle) {
   buttonText = '解密';
   contentText = '密文';
@@ -39,7 +49,10 @@ const handleClick = () => {
   if (toggle) {
     switch (selected) {
       case 'base64':
-        target = window.atob(content);
+        target = Base64.atob(content);
+        break;
+      case 'jwt':
+        target = JSON.stringify(jwt_decode(content), null, '\t');
         break;
       default:
         const decrypted = Rabbit.decrypt(content, key);
@@ -49,7 +62,10 @@ const handleClick = () => {
   } else {
     switch (selected) {
       case 'base64':
-        target = window.btoa(content);
+        target = Base64.btoa(content);
+        break;
+      case 'jwt':
+        target = JSON.stringify(jwt_decode(content), null, '\t');
         break;
       default:
         target = Rabbit.encrypt(content, key);
@@ -62,7 +78,7 @@ const handleClick = () => {
 <div class="grid items-center sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-10 2xl:grid-cols-10 gap-4">
   <div class="flex">
     <div class="dark:text-white whitespace-nowrap mr-2">加密</div>
-    <Toggle bind:checked={toggle}/>
+    <Toggle bind:checked={toggle} bind:disabled={disabled} color={disabled ? 'gray': 'green'}/>
     <div class="dark:text-white whitespace-nowrap">解密</div>
   </div>
   <Select class="mt-2" items={encrypts} bind:value={selected} />
@@ -74,7 +90,7 @@ const handleClick = () => {
   </div>
   <div class="mb-6">
     <Label for="key-input" class="block mb-2">鑰匙</Label>
-    <Input id="key-input" placeholder="Default input" bind:value={key} {rows} />
+    <Input id="key-input" placeholder="Default input" bind:value={key} {rows} disabled={!['default'].includes(selected)} />
   </div>
   <div class="mb-6">
     <Label for="default-input" class="block mb-2">結果</Label>
