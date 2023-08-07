@@ -1,7 +1,7 @@
 <script lang="ts">
 //@ts-nocheck
 import { Navbar, NavBrand, NavUl, NavLi, Chevron, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
-import { inns, tempIdx, storeId } from '../stores';
+import { restaurants, tempIdx, storeId } from '../stores';
 import { get } from 'svelte/store';
 import { goto, url } from '@roxi/routify';
 
@@ -27,7 +27,7 @@ const tools = [
   },
 ];
 
-let max = get(inns).length;
+let max = get(restaurants).length;
 const handleClick = async () => {
   const ary = get(tempIdx);
   let storeIdx = -1;

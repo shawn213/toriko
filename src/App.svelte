@@ -9,7 +9,8 @@ const config = {
   },
 };
 onMount(() => {
-  if (window.location.href.search('/toriko/#/') === -1){
+  console.log(import.meta.env.BASE_URL);
+  if (window.location.href.search('/toriko/#/') === -1) {
     window.location.href = '/toriko/#/';
   }
 });

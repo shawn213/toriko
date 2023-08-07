@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "sit": "routify -c vite",
     "dev": "run-p dev:*",
     "dev:routify": "routify",
     "dev:vite": "vite",
@@ -26,6 +27,7 @@
     "postcss": "^8.4.24",
     "postcss-load-config": "^4.0.1",
     "prettier": "2.7.1",
+    "sass": "^1.64.2",
     "svelte": "^3.59.1",
     "svelte-check": "^2.10.3",
     "svelte-loading-spinners": "^0.3.4",

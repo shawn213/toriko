@@ -3,7 +3,7 @@ import moment from "moment";
 import Api from '../utils/Api';
 import * as Encoding from '../utils/Encoding';
 
-export const inns = writable([]);
+export const restaurants = writable([]);
 export const tempIdx = writable([]);
 export const storeId = writable(-1);
 export const progress = writable(0);
@@ -35,4 +35,4 @@ if (!hs || hs.date !== moment().format('YYYYMM')) {
   }
 }
 holidays.set(hs.days);
-inns.set(stores.stores);
+restaurants.set(stores.stores);

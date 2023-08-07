@@ -1,14 +1,15 @@
 <script lang="ts">
-import { List, Li, Span, Kbd } from 'flowbite-svelte';
+import { List, Li, Span, Kbd, Breadcrumb, BreadcrumbItem } from 'flowbite-svelte';
 import { onMount, onDestroy } from 'svelte';
 import _ from 'lodash';
 import { get } from 'svelte/store';
-import { inns, storeId } from '../../stores';
+import { restaurants, storeId } from '../../stores';
 import StarRating from '../../lib/Rating.svelte';
 import Map from '../../lib/Map.svelte';
+import { params, url } from '@roxi/routify';
 $: idx = -1;
 let store: any;
-$: stores = get(inns);
+$: stores = get(restaurants);
 onMount(() => {
   if (stores.length > 0) {
     storeId.subscribe((v) => {
@@ -18,12 +19,31 @@ onMount(() => {
         idx = v;
       });
     });
+    if ($params.storeIdx) {
+      console.log($params.storeIdx);
+      idx = -1;
+      store = stores[$params.storeIdx];
+      setTimeout(() => {
+        idx = $params.storeIdx;
+      });
+    }
+  } else {
+    const ss = JSON.parse(localStorage.getItem('stores'));
+    if ($params.storeIdx) {
+      idx = $params.storeIdx;
+      store = ss.stores[idx];
+    }
   }
 });
 </script>
 
 <div class="block">
   {#if idx > -1 && store}
+    <Breadcrumb aria-label="Default breadcrumb example">
+      <BreadcrumbItem href={$url('/')} home>Home</BreadcrumbItem>
+      <BreadcrumbItem href={$url('/store')}>店家列表</BreadcrumbItem>
+      <BreadcrumbItem>{store.storeName}</BreadcrumbItem>
+    </Breadcrumb>
     <div class="flex justify-center">
       <div class="font-black text-2xl dark:text-white">{store.storeName}</div>
       {#if store.nickName}

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Alert } from 'flowbite-svelte';
+import { Alert, Span } from 'flowbite-svelte';
 import { showMsg, loading } from '../stores';
 import Menu from '../lib/Menu.svelte';
 import Loading from '../lib/Loading.svelte';
@@ -24,10 +24,11 @@ loading.subscribe((value) => {
   <Menu />
   {#if message}
     <div class="w-full fixed mt-2">
-      <Alert accent dismissable on:close={handleClose}>{message}</Alert>
+      <Alert dismissable on:close={handleClose}>{message}</Alert>
     </div>
   {/if}
 </div>
 <div class="w-full px-4 pt-20 pb-5">
   <slot />
 </div>
+<Span class="fixed right-5 bottom-0">{import.meta.env.VITE_VERSION}</Span>

@@ -2,8 +2,8 @@
 import { get } from 'svelte/store';
 import { goto } from '@roxi/routify';
 import Card from '../../lib/Card.svelte';
-import { inns, storeId } from '../../stores';
-let stores = get(inns);
+import { restaurants, storeId } from '../../stores';
+let stores = get(restaurants);
 const handleClick = (idx: number) => {
   storeId.update((v) => idx);
   $goto('/store/:storeIdx', { storeIdx: idx });

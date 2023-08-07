@@ -18,7 +18,7 @@ import {
 } from 'flowbite-svelte';
 import StarRating from '../../lib/Rating.svelte';
 import Map from '../../lib/Map.svelte';
-import { inns, showMsg } from '../../stores';
+import { restaurants, showMsg } from '../../stores';
 import * as Encoding from '../../utils/Encoding';
 import moment from 'moment';
 let lat = 22.611624148667726;
@@ -81,7 +81,7 @@ function formSubmit() {
       if (res.data.result) {
         showMsg.set('新增成功 - 新增的資料需審查僅自己看得到');
         localStorage.removeItem('stores');
-        inns.update((s) => [...s, res.data.result]);
+        restaurants.update((s) => [...s, res.data.result]);
         isValid = false;
       }
     });

@@ -5,9 +5,11 @@ before_script:
   - npm install -g pnpm
 pages:
   script:
+    - export BASE_PATH=/$CI_PROJECT_NAME
     - pnpm i
     - echo VITE_API_URL=$VITE_API_URL >> .env
     - echo VITE_API_SALT=$VITE_API_SALT >> .env
+    - echo VITE_VERSION=$CI_COMMIT_TAG >> .env
     - echo $VITE_API_URL
     - pnpm build
     - cp -a dist/. public/
