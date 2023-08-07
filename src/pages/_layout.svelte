@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Alert } from 'flowbite-svelte';
-import { showMsg, loading } from '../stores/stores';
+import { showMsg, loading } from '../stores';
 import Menu from '../lib/Menu.svelte';
 import Loading from '../lib/Loading.svelte';
 
@@ -18,7 +18,7 @@ loading.subscribe((value) => {
 </script>
 
 {#if isLoading}
-<Loading />
+  <Loading />
 {/if}
 <div class="w-full left-0 fixed z-40 block">
   <Menu />

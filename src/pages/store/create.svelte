@@ -18,7 +18,7 @@ import {
 } from 'flowbite-svelte';
 import StarRating from '../../lib/Rating.svelte';
 import Map from '../../lib/Map.svelte';
-import { inns, showMsg } from '../../stores/stores';
+import { inns, showMsg } from '../../stores';
 import * as Encoding from '../../utils/Encoding';
 import moment from 'moment';
 let lat = 22.611624148667726;

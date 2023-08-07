@@ -22,8 +22,8 @@ export let store;
     <List tag="ul" class="space-y-1">
       <Li class="flex"><Span class="mr-3">效率:</Span><StarRating rating={speed} /></Li>
       <Li class="flex"><Span class="mr-3">美味:</Span><StarRating rating={delicious} /></Li>
-      <Li class="flex"><Span class="mr-3">距離:</Span>{distance} 公尺</Li>
-      <Li class="flex"><Span class="mr-3">路程:</Span>{_.ceil(time / 60)} 分鐘</Li>
+      <Li class="flex"><Span class="mr-3">距離:</Span><Span>{distance} 公尺</Span></Li>
+      <Li class="flex"><Span class="mr-3">路程:</Span><Span>{_.ceil(time / 60)} 分鐘</Span></Li>
       <Li class="flex flex-wrap">
         {#if store && store.tags}
           {#each store.tags.split(',') as tag}
