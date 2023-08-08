@@ -2,10 +2,11 @@
 export let position;
 export let digit;
 export let color = 'text-red-500';
+export let textSize;
 </script>
 
 <div class={position}>
-  <span class="md:text-8xl font-bold {color}">{`${digit < 10 ? 0 : ''}`}{digit}</span>
+  <span class="{textSize} font-bold {color}">{`${digit < 10 ? 0 : ''}`}{digit}</span>
 </div>
 
 <style lang="scss">
@@ -28,7 +29,7 @@ export let color = 'text-red-500';
   border-top-right-radius: 10px;
 
   span {
-    transform: translateY(50%);
+    transform: translateY(51%);
   }
 }
 
@@ -40,7 +41,7 @@ export let color = 'text-red-500';
   border-top: 0.5px solid transparentize($color: #000000, $amount: 0.7);
 
   span {
-    transform: translateY(-50%);
+    transform: translateY(-51%);
   }
 }
 </style>

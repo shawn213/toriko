@@ -1,11 +1,13 @@
 <script>
+import { Span } from 'flowbite-svelte';
 export let animation;
 export let digit;
 export let color = 'text-red-500';
+export let textSize;
 </script>
 
 <div class="flipCard flex justify-center absolute left-0 w-full h-2/4 overflow-hidden {animation}">
-  <span class="md:text-8xl font-bold {color}">{`${digit < 10 ? 0 : ''}`}{digit}</span>
+  <span class="{textSize} font-bold {color}">{`${digit < 10 ? 0 : ''}`}{digit}</span>
 </div>
 
 <style lang="scss">
@@ -26,7 +28,7 @@ export let color = 'text-red-500';
     background-color: lighten($blue, 5%);
 
     span {
-      transform: translateY(-50%);
+      transform: translateY(-51%);
     }
   }
 
@@ -40,7 +42,7 @@ export let color = 'text-red-500';
     border-top-right-radius: 8px;
 
     span {
-      transform: translateY(50%);
+      transform: translateY(51%);
     }
   }
 }
