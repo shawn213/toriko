@@ -46,7 +46,7 @@ onMount(() => {
   {#each holiday as h}
     <div class="block mb-5">
       <Span class="text-xl">{h.name}</Span>
-      <Countdown endTime={h.date} color="text-lime-400" textSize="text-4xl" />
+      <Countdown endTime={h.date} color="text-lime-400" textSize="text-4xl md:text-8xl" />
     </div>
   {/each}
 {/if}
