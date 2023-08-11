@@ -49,6 +49,7 @@
     "moment": "^2.29.4",
     "prettier-plugin-svelte": "^2.10.1",
     "svelte-countdown": "^1.1.2",
+    "svelte-device-info": "^1.0.0",
     "svelte-routing": "^1.10.0",
     "svelte-star-rating": "^2.0.1",
     "svelty-picker": "^3.5.0",

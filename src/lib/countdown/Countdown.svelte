@@ -14,17 +14,17 @@ dayjs.extend(tz);
 dayjs.extend(customParseFormat);
 
 export let endTime;
-export let color;
-export let textSize = 'text-4xl';
 
-const countdownClass = 'grid grid-cols-5 gap-2';
-const countdownLabelClass = 'text-center text-xs dark:text-white';
-
-let months,
-  days,
-  hours,
-  mintues,
-  seconds = 0;
+let remaining = {
+  years: 0,
+  months: 0,
+  weeks: 0,
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+  done: true,
+};
 
 let done = false;
 const TIME_COUNTDOWN = readable(endTime.diff(dayjs()), (set) => {
@@ -41,19 +41,27 @@ let timeRemainingUnsubscribe = TIME_COUNTDOWN.subscribe((time) => {
   const date = dayjs.duration(time);
   const diff = endTime.valueOf() - dayjs().valueOf();
   if (diff > 0) {
-    months = date.months();
-    days = date.days();
-    hours = date.hours();
-    mintues = date.minutes();
-    seconds = date.seconds();
-    done = false;
+    remaining = {
+      years: date.years(),
+      months: date.months(),
+      weeks: date.weeks(),
+      days: date.days(),
+      hours: date.hours(),
+      minutes: date.minutes(),
+      seconds: date.seconds(),
+      done: false,
+    };
   } else {
-    months = 0;
-    days = 0;
-    hours = 0;
-    mintues = 0;
-    seconds = 0;
-    done = true;
+    remaining = {
+      years: 0,
+      months: 0,
+      weeks: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      done: true,
+    };
   }
 });
 
@@ -62,31 +70,4 @@ onDestroy(() => {
 });
 </script>
 
-<div class="flex">
-  <div class={countdownClass}>
-    {#if !done}
-      {#if months > 0}
-        <div class="flex flex-col">
-          <FlipContainer digit={months} {color} {textSize} />
-          <span class={countdownLabelClass}>Months</span>
-        </div>
-      {/if}
-      <div class="flex flex-col">
-        <FlipContainer digit={days} {color} {textSize} />
-        <span class={countdownLabelClass}>Days</span>
-      </div>
-      <div class="flex flex-col">
-        <FlipContainer digit={hours} {color} {textSize} />
-        <span class={countdownLabelClass}>Hours</span>
-      </div>
-      <div class="flex flex-col">
-        <FlipContainer digit={mintues} {color} {textSize} />
-        <span class={countdownLabelClass}>Mintues</span>
-      </div>
-      <div class="flex flex-col">
-        <FlipContainer digit={seconds} {color} {textSize} />
-        <span class={countdownLabelClass}>Seconds</span>
-      </div>
-    {/if}
-  </div>
-</div>
+<slot {remaining} />

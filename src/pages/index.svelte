@@ -1,13 +1,19 @@
 <script lang="ts">
 import { onMount } from 'svelte';
+import Device from 'svelte-device-info';
 // @ts-ignore
 import Countdown from '$lib/countdown';
 import { Span } from 'flowbite-svelte';
 import { holidays } from '../stores';
+import FlipContainer from '../lib/countdown/FlipContainer.svelte';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 
 $: holiday = [];
+let color = 'text-lime-400';
+let textSize = 'text-4xl md:text-8xl';
+
+const countdownLabelClass = 'text-center text-xs dark:text-white';
 
 onMount(() => {
   const now = dayjs();
@@ -46,7 +52,48 @@ onMount(() => {
   {#each holiday as h}
     <div class="block mb-5">
       <Span class="text-xl">{h.name}</Span>
-      <Countdown endTime={h.date} color="text-lime-400" textSize="text-4xl md:text-8xl" />
+      <Countdown endTime={h.date} let:remaining>
+        {#if !Device.isMobile}
+          <div class="flex">
+            <div class="grid grid-cols-5 gap-2">
+              {#if !remaining.done}
+                {#if remaining.months > 0}
+                  <div class="flex flex-col">
+                    <FlipContainer digit={remaining.months} {color} {textSize} />
+                    <span class={countdownLabelClass}>Months</span>
+                  </div>
+                {/if}
+                <div class="flex flex-col">
+                  <FlipContainer digit={remaining.days} {color} {textSize} />
+                  <span class={countdownLabelClass}>Days</span>
+                </div>
+                <div class="flex flex-col">
+                  <FlipContainer digit={remaining.hours} {color} {textSize} />
+                  <span class={countdownLabelClass}>Hours</span>
+                </div>
+                <div class="flex flex-col">
+                  <FlipContainer digit={remaining.minutes} {color} {textSize} />
+                  <span class={countdownLabelClass}>Minutes</span>
+                </div>
+                <div class="flex flex-col">
+                  <FlipContainer digit={remaining.seconds} {color} {textSize} />
+                  <span class={countdownLabelClass}>Seconds</span>
+                </div>
+              {/if}
+            </div>
+          </div>
+        {:else}
+          <div class="block">
+            {#if remaining.weeks > 0}
+              <Span class="text-lg">{remaining.weeks} 週</Span>
+            {/if}
+            <Span class="text-lg">{remaining.days} 日</Span>
+            <Span class="text-lg">{remaining.hours} 小時</Span>
+            <Span class="text-lg">{remaining.minutes} 分</Span>
+            <Span class="text-lg">{remaining.seconds} 秒</Span>
+          </div>
+        {/if}
+      </Countdown>
     </div>
   {/each}
 {/if}
