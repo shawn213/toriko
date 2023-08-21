@@ -1,29 +1,49 @@
 <script lang="ts">
 //@ts-nocheck
 import { Navbar, NavBrand, NavUl, NavLi, Chevron, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
-import { restaurants, tempIdx, storeId } from '../stores';
+import { Icon } from 'flowbite-svelte-icons';
+import { restaurants, tempIdx, storeId, loading } from '../stores';
 import { get } from 'svelte/store';
 import { goto, url } from '@roxi/routify';
+import { updateHoliday, updateStore } from '../utils/Update';
 
-const menu = [
+const menus = [
+  { name: 'Home', href: '/' },
   {
-    name: '店家列表',
-    href: '/store',
+    name: '附近',
+    childs: [
+      {
+        name: '店家列表',
+        href: '/store',
+        icon: 'database-solid',
+      },
+      {
+        name: '新增店家',
+        href: '/store/create',
+        icon: 'cloud-arrow-up-outline',
+      },
+    ],
   },
   {
-    name: '新增店家',
-    href: '/store/create',
-  },
-];
-
-const tools = [
-  {
-    name: '抽籤',
-    href: '/tools/draw',
-  },
-  {
-    name: '加解密',
-    href: '/tools/encrypt',
+    name: '線上工具',
+    childs: [
+      {
+        name: '抽籤',
+        href: '/tools/draw',
+      },
+      {
+        name: '加解密',
+        href: '/tools/encrypt',
+      },
+      {
+        name: '工作時數',
+        href: '/tools/work',
+      },
+      {
+        name: '調幅',
+        href: '/tools/magnitudes',
+      },
+    ],
   },
 ];
 
@@ -43,6 +63,12 @@ tempIdx.subscribe((array) => {
     tempIdx.set([]);
   }
 });
+const handleUpdate = async () => {
+  loading.update((v) => true);
+  await updateHoliday();
+  await updateStore();
+  loading.update((v) => false);
+};
 </script>
 
 <Navbar
@@ -58,18 +84,26 @@ tempIdx.subscribe((array) => {
     </a>
   </NavBrand>
   <div class="flex md:order-2">
+    <Button class="mr-2" on:click={handleUpdate}><Icon name="rotate-outline" class="w-5 h-5" /></Button>
     <Button on:click={handleClick} size="lg" gradient>隨選</Button>
     <NavHamburger on:click={toggle} />
   </div>
   <NavUl {hidden} class="md:order-1">
-    <NavLi href={$url('/')}>Home</NavLi>
-    <NavLi><Chevron aligned>附近</Chevron></NavLi>
-    <MegaMenu items={menu} let:item class="block">
-      <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
-    </MegaMenu>
-    <NavLi><Chevron aligned>線上工具</Chevron></NavLi>
-    <MegaMenu items={tools} let:item class="block">
-      <a href={$url(item.href)} class="mx-1 hover:text-blue-600 dark:hover:text-blue-500">{item.name}</a>
-    </MegaMenu>
+    {#each menus as menu}
+      {#if menu.childs}
+        <NavLi><Chevron aligned>{menu.name}</Chevron></NavLi>
+        <MegaMenu items={menu.childs} let:item>
+          <a href={$url(item.href)} class="flex items-center hover:text-primary-600 dark:hover:text-primary-500 mr-2">
+            <span class="sr-only">{item.name}</span>
+            <svelte:component
+              this={Icon}
+              name={item.icon ? item.icon : 'user-circle-outline'}
+              class="w-4 h-4 mr-2" />{item.name}
+          </a>
+        </MegaMenu>
+      {:else}
+        <NavLi href={$url(menu.href)}>{menu.name}</NavLi>
+      {/if}
+    {/each}
   </NavUl>
 </Navbar>

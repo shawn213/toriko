@@ -84,13 +84,15 @@ onMount(() => {
           </div>
         {:else}
           <div class="block">
-            {#if remaining.weeks > 0}
-              <Span class="text-lg">{remaining.weeks} 週</Span>
+            {#if !remaining.done}
+              {#if remaining.weeks > 0}
+                <Span class="text-lg">{remaining.weeks} 週</Span>
+              {/if}
+              <Span class="text-lg">{remaining.days} 天</Span>
+              <Span class="text-lg">{remaining.hours} 小時</Span>
+              <Span class="text-lg">{remaining.minutes} 分</Span>
+              <Span class="text-lg">{remaining.seconds} 秒</Span>
             {/if}
-            <Span class="text-lg">{remaining.days} 日</Span>
-            <Span class="text-lg">{remaining.hours} 小時</Span>
-            <Span class="text-lg">{remaining.minutes} 分</Span>
-            <Span class="text-lg">{remaining.seconds} 秒</Span>
           </div>
         {/if}
       </Countdown>

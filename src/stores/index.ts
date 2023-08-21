@@ -18,9 +18,9 @@ let stores = JSON.parse(localStorage.getItem('stores'));
 if (!stores) {
   const token = Encoding.crypto(salt, `findAllStore_${moment().format('YYYYMMDDHHmmss')}`);
 	const res = await Api.get(`${import.meta.env.VITE_API_URL}?token=${token}`);
-	const { message, data } = res.data;
-	if (!message) {
-		stores = { stores: data, date };
+	const { result } = res.data;
+	if (result.length > 0) {
+		stores = { stores: result, date };
 		localStorage.setItem('stores', JSON.stringify(stores));
 	}
 }
