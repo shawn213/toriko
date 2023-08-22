@@ -146,7 +146,7 @@ function formSubmit() {
         </Li>
       </List>
       {#if show}
-        <Map {lat} {lng} />
+        <Map />
       {/if}
       <Button type="submit" disabled={isValid} class="w-full my-1" outline color="purple">送出</Button>
     </Form>
