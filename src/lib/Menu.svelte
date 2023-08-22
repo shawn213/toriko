@@ -1,6 +1,6 @@
 <script lang="ts">
 //@ts-nocheck
-import { Navbar, NavBrand, NavUl, NavLi, Chevron, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
+import { Navbar, NavBrand, NavUl, NavLi, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
 import { Icon } from 'flowbite-svelte-icons';
 import { restaurants, tempIdx, storeId, loading, showMsg } from '../stores';
 import { get } from 'svelte/store';
@@ -20,7 +20,7 @@ const menus = [
       {
         name: '新增店家',
         href: '/store/create',
-        icon: 'cloud-arrow-up-outline',
+        icon: 'map-pin-alt-solid',
       },
     ],
   },
@@ -30,18 +30,22 @@ const menus = [
       {
         name: '抽籤',
         href: '/tools/draw',
+        icon: 'wallet-solid',
       },
       {
         name: '加解密',
         href: '/tools/encrypt',
+        icon: 'lock-solid',
       },
       {
         name: '工作時數',
         href: '/tools/work',
+        icon: 'calendar-month-solid',
       },
       {
         name: '調幅',
         href: '/tools/magnitudes',
+        icon: 'chart-line-up-solid',
       },
     ],
   },
@@ -92,7 +96,10 @@ const handleUpdate = async () => {
   <NavUl {hidden} class="md:order-1">
     {#each menus as menu}
       {#if menu.childs}
-        <NavLi><Chevron aligned>{menu.name}</Chevron></NavLi>
+        <NavLi
+          >{menu.name}<Icon
+            name="caret-down-solid"
+            class="w-3 h-3 ml-2 text-primary-800 dark:text-white inline" /></NavLi>
         <MegaMenu items={menu.childs} let:item>
           <a href={$url(item.href)} class="flex items-center hover:text-primary-600 dark:hover:text-primary-500 mr-2">
             <span class="sr-only">{item.name}</span>

@@ -17,7 +17,7 @@ import {
   A,
 } from 'flowbite-svelte';
 import StarRating from '../../lib/Rating.svelte';
-import Map from '../../lib/Map.svelte';
+import Map from '../../lib/LeafletMap.svelte';
 import { restaurants, showMsg } from '../../stores';
 import * as Encoding from '../../utils/Encoding';
 import moment from 'moment';

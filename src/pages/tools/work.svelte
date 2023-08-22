@@ -2,8 +2,8 @@
 import { Label, Input, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
 import dayjs from 'dayjs';
 
-let startMonth = dayjs().month() + 1;
-let endMonth = dayjs().month() + 1;
+let startMonth = dayjs().format('YYYYMM');
+let endMonth = dayjs().format('YYYYMM');
 let manDay = 1;
 $: items = [];
 
@@ -14,13 +14,8 @@ const isWorkDay = (date: any) => {
 
 $: {
   items = [];
-  let startDay = dayjs()
-    .month(startMonth - 1)
-    .startOf('month');
-  const endDay = dayjs()
-    .month(endMonth - 1)
-    .endOf('month')
-    .startOf('date');
+  let startDay = dayjs(startMonth, 'YYYYMM').startOf('month');
+  const endDay = dayjs(endMonth, 'YYYYMM').endOf('month').startOf('date');
   let preMonth = startDay.month();
   let idx = 0;
   let workDay = 0;
@@ -63,9 +58,9 @@ $: {
   {#if items.length > 0}
     <Table>
       <TableHead>
-        <TableBodyCell>項目</TableBodyCell>
+        <TableHeadCell>項目</TableHeadCell>
         {#each items as item}
-          <TableBodyCell>{item.month}</TableBodyCell>
+          <TableHeadCell>{item.month}</TableHeadCell>
         {/each}
       </TableHead>
       <TableBody>
