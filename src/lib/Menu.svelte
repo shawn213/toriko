@@ -2,7 +2,7 @@
 //@ts-nocheck
 import { Navbar, NavBrand, NavUl, NavLi, Chevron, NavHamburger, MegaMenu, Button } from 'flowbite-svelte';
 import { Icon } from 'flowbite-svelte-icons';
-import { restaurants, tempIdx, storeId, loading } from '../stores';
+import { restaurants, tempIdx, storeId, loading, showMsg } from '../stores';
 import { get } from 'svelte/store';
 import { goto, url } from '@roxi/routify';
 import { updateHoliday, updateStore } from '../utils/Update';
@@ -67,6 +67,7 @@ const handleUpdate = async () => {
   loading.update((v) => true);
   await updateHoliday();
   await updateStore();
+  showMsg.update((v) => '已更新最新資料');
   loading.update((v) => false);
 };
 </script>
