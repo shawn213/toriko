@@ -1,13 +1,18 @@
 <script lang="ts">
-import leaflet from 'leaflet';
+import L from 'leaflet';
 import { onMount } from 'svelte';
 import { LeafletMap, TileLayer, Marker } from 'svelte-leafletjs';
 
-const wistronCneter = [22.61321821006927, 120.29396187592799];
+export let zoom = 19;
+export let lat;
+export let lng;
+export let recenter = false;
+
+const wistronCneter = [lat, lng];
 
 const mapOptions = {
   center: wistronCneter,
-  zoom: 19,
+  zoom,
 };
 const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const tileLayerOptions = {
@@ -17,21 +22,27 @@ const tileLayerOptions = {
   attribution: '© OpenStreetMap contributors',
 };
 
+const redIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 let leafletMap;
 
+$: if (recenter && leafletMap) {
+  if (lat && lng) {
+    leafletMap.getMap().panTo([lat, lng]);
+    recenter = false;
+  }
+}
+
 onMount(async () => {
-  const L = leaflet;
-  // if (lat && lng) {
-  //   const bounds = new L.LatLngBounds([wistronCneter, [lat, lng]]);
-  //   leafletMap.getMap().fitBounds(bounds);
-  // } else {
-  //   leafletMap.getMap().panTo(L.latLng(22.61321821006927, 120.29396187592799));
-  //   leafletMap.getMap().setZoom(18);
-  // }
   const onMapClick = (e) => {
-    let lat = e.latlng.lat; //緯度
-    let lng = e.latlng.lng; //經度
-    L.popup().setLatLng(e.latlng).setContent(`緯度：${lat}<br/>經度：${lng}`).openOn(leafletMap.getMap());
+    lat = e.latlng.lat; //緯度
+    lng = e.latlng.lng; //經度
   };
   leafletMap.getMap().on('click', onMapClick);
 });
@@ -40,5 +51,8 @@ onMount(async () => {
 <div class="w-96 h-96">
   <LeafletMap bind:this={leafletMap} options={mapOptions}>
     <TileLayer url={tileUrl} options={tileLayerOptions} />
+    {#if lat && lng}
+      <Marker latLng={[lat, lng]} icon={redIcon} />
+    {/if}
   </LeafletMap>
 </div>
