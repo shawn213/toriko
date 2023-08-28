@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import "./app.postcss";
 import App from "./App.svelte";
 

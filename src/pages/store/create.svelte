@@ -17,13 +17,12 @@ import {
   A,
 } from 'flowbite-svelte';
 import StarRating from '../../lib/Rating.svelte';
-import Map from '../../lib/Map.svelte';
-import { restaurants, showMsg } from '../../stores';
+import Map from '../../lib/LeafletMap.svelte';
+import { restaurants, showMsg, loading } from '../../stores';
 import * as Encoding from '../../utils/Encoding';
 import moment from 'moment';
-let lat = 22.611624148667726;
-let lng = 120.29340837137883;
-let checkPoint = 'no';
+let lat = 22.61321821006927;
+let lng = 120.29396187592799;
 const checkboxStyle = [
   'font-normal',
   'p-1',
@@ -46,16 +45,16 @@ const checkboxStyle = [
   'dark:hover:bg-gray-700',
 ].join(' ');
 const items = ['冷氣', '無限暢飲'];
-let show = true;
 $: if (fields.coordinate && fields.coordinate.match(/22\.61\d{3,}, 120\.29\d{3,}/)) {
   handleRefresh();
 }
+$: if (lat && lng) {
+  fields.coordinate = `${lat}, ${lng}`;
+}
 const handleRefresh = () => {
-  show = false;
   const [latitude, longitude] = fields.coordinate.split(/,/g);
   lat = parseFloat(latitude.trim());
   lng = parseFloat(longitude.trim());
-  setTimeout(() => (show = true), 0);
 };
 
 let schema = yup.object().shape({
@@ -73,18 +72,23 @@ function formSubmit() {
   submitted = true;
   isValid = schema.isValidSync(fields);
   if (isValid) {
-    const token = Encoding.crypto(import.meta.env.VITE_API_SALT, `writeTempStore_${moment().format('YYYYMMDDHHmmss')}`);
-    let urlParameters = Object.entries({ ...fields, token })
-      .map((e) => e.join('='))
-      .join('&');
-    axios.get(import.meta.env.VITE_API_URL + `?${urlParameters}`).then((res) => {
-      if (res.data.result) {
-        showMsg.set('新增成功 - 新增的資料需審查僅自己看得到');
-        localStorage.removeItem('stores');
-        restaurants.update((s) => [...s, res.data.result]);
-        isValid = false;
-      }
-    });
+    loading.update((v) => true);
+    const token = Encoding.crypto(import.meta.env.VITE_API_SALT, `writeStore_${moment().format('YYYYMMDDHHmmss')}`);
+    axios
+      .post(import.meta.env.VITE_API_URL, JSON.stringify({ ...fields, token }), {
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      })
+      .then((res) => {
+        if (res.data.result) {
+          showMsg.set('新增成功 - 新增的資料需審查僅自己看得到');
+          let stores = JSON.parse(localStorage.getItem('stores'));
+          restaurants.update((s) => [...s, res.data.result]);
+          stores.stores = [...stores.stores, res.data.result];
+          localStorage.setItem('stores', JSON.stringify(stores));
+          isValid = false;
+        }
+      });
+    loading.update((v) => false);
   }
 }
 </script>
@@ -145,9 +149,7 @@ function formSubmit() {
           <Helper color="red"><Message name="coordinate" /></Helper>
         </Li>
       </List>
-      {#if show}
-        <Map {lat} {lng} />
-      {/if}
+      <Map zoom={18} bind:lat bind:lng />
       <Button type="submit" disabled={isValid} class="w-full my-1" outline color="purple">送出</Button>
     </Form>
   </div>

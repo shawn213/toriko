@@ -24,7 +24,7 @@ loading.subscribe((value) => {
   <Menu />
   {#if message}
     <div class="w-full fixed mt-2">
-      <Alert dismissable on:close={handleClose}>{message}</Alert>
+      <Alert dismissable on:close={handleClose} color="none" class="bg-lime-500 text-lime-900">{message}</Alert>
     </div>
   {/if}
 </div>

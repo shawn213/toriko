@@ -95,10 +95,10 @@ const handleClick = () => {
 
 <div class="flex gap-2 mb-2 h-8">
   <div class="dark:text-white whitespace-nowrap">省略過程</div>
-  <Toggle bind:checked={toggle}/>
+  <Toggle bind:checked={toggle} />
   <div class="dark:text-white whitespace-nowrap">開獎過程</div>
   {#if toggle}
-  <Input type="text" size="sm" bind:value={second} />
+    <Input type="text" size="sm" bind:value={second} />
   {/if}
 </div>
 <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-4">
@@ -112,12 +112,12 @@ const handleClick = () => {
   </div>
 </div>
 {#if toggle}
-<div class="block">
-  <div class="flex justify-center mb-3 dark:text-white text-5xl">{ss}</div>
-  <div class="flex justify-center mb-2 gap-1">
-    <Slot array={tList} bind:play={tPlay} bind:value={tt} />
+  <div class="block">
+    <div class="flex justify-center mb-3 dark:text-white text-5xl">{ss}</div>
+    <div class="flex justify-center mb-2 gap-1">
+      <Slot array={tList} bind:play={tPlay} bind:value={tt} />
+    </div>
   </div>
-</div>
 {/if}
 <div class="flex justify-center mb-2">
   <Button on:click={handleClick}>配對</Button>
@@ -127,7 +127,7 @@ const handleClick = () => {
     <div>
       <Table color="green" striped={true}>
         <TableHead><TableHeadCell class="text-center text-2xl">{item.title}</TableHeadCell></TableHead>
-        <TableBody class="divide-y">
+        <TableBody tableBodyClass="divide-y">
           <TableBodyRow>
             <TableBodyCell class="text-center text-2xl">{item.name}</TableBodyCell>
           </TableBodyRow>

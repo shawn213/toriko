@@ -8,6 +8,7 @@ import StaticCard from './StaticCard.svelte';
 
 export let digit;
 export let color;
+export let textSize;
 
 let previousDigit, animation, animation2, flip;
 
@@ -30,10 +31,10 @@ onDestroy(() => {
 </script>
 
 <div class="flip-container">
-  <StaticCard position="upperCard" {digit} {color} />
-  <StaticCard position="lowerCard" digit={previousDigit} {color} />
-  <AnimatedCard digit={flip ? digit : previousDigit} {animation} {color} />
-  <AnimatedCard digit={flip ? previousDigit : digit} animation={animation2} {color} />
+  <StaticCard position="upperCard" {digit} {color} {textSize} />
+  <StaticCard position="lowerCard" digit={previousDigit} {color} {textSize} />
+  <AnimatedCard digit={flip ? digit : previousDigit} {animation} {color} {textSize} />
+  <AnimatedCard digit={flip ? previousDigit : digit} animation={animation2} {color} {textSize} />
 </div>
 
 <style lang="scss">

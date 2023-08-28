@@ -15,23 +15,23 @@ const salt = import.meta.env.VITE_API_SALT;
 const now = moment().format('YYYYMMDD');
 const date = moment().isAfter(moment('12', 'HH')) ? `${now}PM` : `${now}AM`;
 let stores = JSON.parse(localStorage.getItem('stores'));
-if (!stores || stores.date !== date) {
+if (!stores) {
   const token = Encoding.crypto(salt, `findAllStore_${moment().format('YYYYMMDDHHmmss')}`);
 	const res = await Api.get(`${import.meta.env.VITE_API_URL}?token=${token}`);
-	const { message, data } = res.data;
-	if (!message) {
-		stores = { stores: data, date };
+	const { result } = res.data;
+	if (result.length > 0) {
+		stores = { stores: result, date };
 		localStorage.setItem('stores', JSON.stringify(stores));
 	}
 }
-let hs = JSON.parse(localStorage.getItem('holiday'));
-if (!hs || hs.date !== moment().format('YYYYMM')) {
+let hs = JSON.parse(localStorage.getItem('holidays'));
+if (!hs) {
   const token = Encoding.crypto(salt, `findAllHoliday_${moment().format('YYYYMMDDHHmmss')}`);
   const res = await Api.get(`${import.meta.env.VITE_API_URL}?token=${token}`);
   const { data } = res;
   if (data.result.length > 0) {
     hs = { days: data.result, date: moment().format('YYYYMM') }
-    localStorage.setItem('holiday', JSON.stringify(hs));
+    localStorage.setItem('holidays', JSON.stringify(hs));
   }
 }
 holidays.set(hs.days);
