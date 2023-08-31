@@ -57,10 +57,10 @@ onMount(() => {
           <div class="flex">
             <div class="grid grid-cols-5 gap-2">
               {#if !remaining.done}
-                {#if remaining.weeks > 0}
+                {#if remaining.months > 0}
                   <div class="flex flex-col">
-                    <FlipContainer digit={remaining.weeks} {color} {textSize} />
-                    <span class={countdownLabelClass}>Weeks</span>
+                    <FlipContainer digit={remaining.months} {color} {textSize} />
+                    <span class={countdownLabelClass}>Months</span>
                   </div>
                 {/if}
                 <div class="flex flex-col">
@@ -85,8 +85,8 @@ onMount(() => {
         {:else}
           <div class="block">
             {#if !remaining.done}
-              {#if remaining.weeks > 0}
-                <Span class="text-lg">{remaining.weeks} 週</Span>
+              {#if remaining.months > 0}
+                <Span class="text-lg">{remaining.months} 月</Span>
               {/if}
               <Span class="text-lg">{remaining.days} 天</Span>
               <Span class="text-lg">{remaining.hours} 小時</Span>
