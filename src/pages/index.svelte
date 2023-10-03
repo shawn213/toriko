@@ -40,7 +40,7 @@ onMount(() => {
       });
     }
     holiday.push({
-      date: nextHoliday,
+      date: nextHoliday.clone().hour(18).minute(20).second(0),
       name: `距離下一個國定假日 ${nextHoliday_obj.name}`,
     });
     holiday = holiday;
