@@ -25,13 +25,13 @@ onMount(() => {
     holiday = [];
     const nextHoliday_obj = hs.find((h) => dayjs(h.date, 'YYYY-MM-DD').isAfter(now));
     const prefHoliday = dayjs(nextHoliday_obj.date, 'YYYY-MM-DD');
-    const nextHoliday = prefHoliday.clone().add(-1, 'day');
+    let nextHoliday = prefHoliday.clone().add(-1, 'day');
     while (
       nextHoliday.day() === 0 ||
       nextHoliday.day() === 6 ||
       hs.filter((h) => h.date === nextHoliday.format('YYYY-MM-DD')).length > 0
     ) {
-      nextHoliday.add(-1, 'day');
+      nextHoliday = nextHoliday.add(-1, 'day');
     }
     if (nextFriday.isBefore(nextHoliday)) {
       holiday.push({

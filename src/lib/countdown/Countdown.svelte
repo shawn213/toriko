@@ -26,7 +26,6 @@ let remaining = {
   done: true,
 };
 
-let done = false;
 const TIME_COUNTDOWN = readable(endTime.diff(dayjs()), (set) => {
   set(endTime.diff(dayjs()));
 
