@@ -52,6 +52,7 @@
     "moment": "^2.29.4",
     "prettier-plugin-svelte": "^2.10.1",
     "svelte-device-info": "^1.0.0",
+    "svelte-jsoneditor": "^0.18.9",
     "svelte-star-rating": "^2.0.1",
     "svelty-picker": "^4.0.9",
     "tailwind-merge": "^1.14.0",

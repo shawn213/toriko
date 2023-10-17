@@ -47,6 +47,14 @@ const menus = [
         href: '/tools/magnitudes',
         icon: 'chart-line-up-solid',
       },
+      {
+        name: 'json格式化',
+        href: '/tools/json',
+      },
+      {
+        name: 'mybatis',
+        href: '/tools/mybatis',
+      },
     ],
   },
 ];
