@@ -1,27 +1,32 @@
 <script lang="ts">
 import { Label, Input, Textarea, Button, Toggle } from 'flowbite-svelte';
-import _ from 'lodash';
+import _, { map } from 'lodash';
 let javaToggle = false;
 let tableName = '';
 let column = '';
 let primaryKey = '';
 let result = '';
 const handleClick = () => {
-  const columns = column.split(/\s?,\s?/);
-  const primaryKeys = primaryKey.split(/\s?\.\s?/);
+  const columns = column.split(/\s?,\s?/).filter((key) => !_.isEmpty(key));
+  const primaryKeys = primaryKey.split(/\s?,\s?/).filter((key) => !_.isEmpty(key));
   result = `
-insert into ${tableName} (
-  ${columns.join(', ')}
-)
-values
-<foreach collection='list' item='vo' index='index' separator=','>
-  (
-    ${[...primaryKeys, ...columns].map((key) => `#{vo.${key}}`).join(', ')}
+<script>
+  insert into ${tableName} (
+    ${columns.join(', ')}
   )
-</foreach>
-on conflict(${primaryKeys.join(', ')})
-do update set
-${columns.map((key) => `${key} = EXCLUDED.${key}`).join(',\n')}
+  values
+  <foreach collection='list' item='vo' index='index' separator=','>
+    (
+      ${[...primaryKeys, ...columns]
+        .map((key) => _.camelCase(key))
+        .map((key) => `#{vo.${key}}`)
+        .join(', ')}
+    )
+  </foreach>
+  on conflict(${primaryKeys.join(', ')})
+  do update set
+  ${columns.map((key) => `${key} = EXCLUDED.${key}`).join(',\n')}
+<\/script>
   `;
   result = result
     .split('\n')
