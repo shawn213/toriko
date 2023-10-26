@@ -30,7 +30,7 @@ const menus = [
       {
         name: '抽籤',
         href: '/tools/draw',
-        icon: 'wallet-solid',
+        icon: 'inbox-solid',
       },
       {
         name: '加解密',
@@ -50,10 +50,12 @@ const menus = [
       {
         name: 'json格式化',
         href: '/tools/json',
+        icon: 'code-solid',
       },
       {
         name: 'mybatis',
         href: '/tools/mybatis',
+        icon: 'code-solid',
       },
     ],
   },
