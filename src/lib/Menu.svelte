@@ -79,10 +79,15 @@ tempIdx.subscribe((array) => {
 });
 const handleUpdate = async () => {
   loading.update((v) => true);
-  await updateHoliday();
-  await updateStore();
-  showMsg.update((v) => '已更新最新資料');
-  loading.update((v) => false);
+  try {
+    await updateHoliday();
+    await updateStore();
+    showMsg.update((v) => '已更新最新資料');
+  } catch (e) {
+    showMsg.update((v) => '後端 server 有問題請五分鐘後在試');
+  } finally {
+    loading.update((v) => false);
+  }
 };
 </script>
 

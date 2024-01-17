@@ -3,6 +3,8 @@ import dayjs from "dayjs";
 import { holidays, restaurants } from '../stores';
 import { crypto } from './Encoding';
 
+axios.defaults.timeout = 10000; // 十秒 timeout
+
 export const updateHoliday = async () => {
   let isUpdate: boolean = false;
   const salt = import.meta.env.VITE_API_SALT;
