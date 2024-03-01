@@ -24,6 +24,16 @@ const menus = [
       },
     ],
   },
+  // {
+  //   name: '訂便當',
+  //   childs: [
+  //     {
+  //       name: '開團',
+  //       href: '/order/create',
+  //       icon: 'file-plus-solid',
+  //     },
+  //   ],
+  // },
   {
     name: '線上工具',
     childs: [
@@ -55,6 +65,11 @@ const menus = [
       {
         name: 'mybatis',
         href: '/tools/mybatis',
+        icon: 'code-solid',
+      },
+      {
+        name: 'sql-formatter',
+        href: '/tools/sql',
         icon: 'code-solid',
       },
     ],

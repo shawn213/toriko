@@ -22,7 +22,7 @@
     "classnames": "^2.3.2",
     "dayjs": "^1.11.9",
     "flowbite": "^1.7.0",
-    "flowbite-svelte": "^0.44.4",
+    "flowbite-svelte": "^0.44.21",
     "flowbite-svelte-icons": "^0.3.6",
     "leaflet": "^1.9.4",
     "npm-run-all": "^4.1.5",
@@ -44,6 +44,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.5.1",
     "@types/lodash": "^4.14.195",
+    "@types/uuid": "^9.0.7",
     "axios": "^1.4.0",
     "crypto-js": "^4.1.1",
     "js-base64": "^3.7.5",
@@ -51,11 +52,14 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "prettier-plugin-svelte": "^2.10.1",
+    "sql-formatter": "^14.0.0",
     "svelte-device-info": "^1.0.0",
     "svelte-jsoneditor": "^0.18.9",
+    "svelte-qrcode": "^1.0.0",
     "svelte-star-rating": "^2.0.1",
     "svelty-picker": "^4.0.9",
     "tailwind-merge": "^1.14.0",
+    "uuid": "^9.0.1",
     "yup": "^1.2.0"
   }
 }

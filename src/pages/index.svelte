@@ -8,6 +8,7 @@ import { holidays } from '../stores';
 import FlipContainer from '../lib/countdown/FlipContainer.svelte';
 import _ from 'lodash';
 import dayjs from 'dayjs';
+import QrCode from 'svelte-qrcode';
 
 $: holiday = [];
 let color = 'text-lime-400';
@@ -99,3 +100,6 @@ onMount(() => {
     </div>
   {/each}
 {/if}
+<div class="w-96 h-96">
+  <QrCode value={window.location.origin + window.location.pathname} />
+</div>

@@ -16,7 +16,7 @@ $: if (now && magn) {
 }
 </script>
 
-<div class="grid gap-6 mb-4 grid-cols-12 items-center">
+<div class="grid gap-6 mb-4 grid-cols-4 items-center">
   <div>
     <Label for="first_name" class="mb-2">調價前</Label>
     <Input type="text" class="text-right" bind:value={now} />
@@ -30,7 +30,7 @@ $: if (now && magn) {
     <Input type="text" class="text-right" bind:value={mag} />
   </div>
 </div>
-<div class="grid gap-6 mb-4 md:grid-cols-6 items-center">
+<div class="grid gap-6 mb-4 md:grid-cols-4 items-center">
   <div class="grid gap-6 mb-4 grid-cols-4 items-center">
     <div>
       <Label for="last_name" class="mb-2">調幅(%)</Label>
@@ -38,7 +38,7 @@ $: if (now && magn) {
     </div>
   </div>
 </div>
-<div class="grid gap-6 mb-4 grid-cols-12 items-center">
+<div class="grid gap-6 mb-4 grid-cols-4 items-center">
   <div>
     <Label for="last_name" class="mb-2">調價後</Label>
     <Input type="text" class="text-right" bind:value={result} />
