@@ -24,3 +24,5 @@ export const decrypt = (salt, encoded) => {
     .map((charCode) => String.fromCharCode(charCode))
     .join("");
 };
+
+export default { crypto, decrypt };

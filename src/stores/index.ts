@@ -10,6 +10,7 @@ export const progress = writable(0);
 export const showMsg = writable('');
 export const holidays = writable([]);
 export const loading = writable(false);
+export const hideHeader = writable(false);
 
 const salt = import.meta.env.VITE_API_SALT;
 const now = moment().format('YYYYMMDD');

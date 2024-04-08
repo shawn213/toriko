@@ -24,16 +24,16 @@ const menus = [
       },
     ],
   },
-  // {
-  //   name: '訂便當',
-  //   childs: [
-  //     {
-  //       name: '開團',
-  //       href: '/order/create',
-  //       icon: 'file-plus-solid',
-  //     },
-  //   ],
-  // },
+  {
+    name: '訂便當',
+    childs: [
+      {
+        name: '開團',
+        href: '/order/create',
+        icon: 'file-plus-solid',
+      },
+    ],
+  },
   {
     name: '線上工具',
     childs: [

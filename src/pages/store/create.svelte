@@ -74,20 +74,16 @@ function formSubmit() {
   if (isValid) {
     loading.update((v) => true);
     const token = Encoding.crypto(import.meta.env.VITE_API_SALT, `writeStore_${moment().format('YYYYMMDDHHmmss')}`);
-    axios
-      .post(import.meta.env.VITE_API_URL, JSON.stringify({ ...fields, token }), {
-        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-      })
-      .then((res) => {
-        if (res.data.result) {
-          showMsg.set('新增成功 - 新增的資料需審查僅自己看得到');
-          let stores = JSON.parse(localStorage.getItem('stores'));
-          restaurants.update((s) => [...s, res.data.result]);
-          stores.stores = [...stores.stores, res.data.result];
-          localStorage.setItem('stores', JSON.stringify(stores));
-          isValid = false;
-        }
-      });
+    axios.post('', JSON.stringify({ ...fields, token })).then((res) => {
+      if (res.data.result) {
+        showMsg.set('新增成功 - 新增的資料需審查僅自己看得到');
+        let stores = JSON.parse(localStorage.getItem('stores'));
+        restaurants.update((s) => [...s, res.data.result]);
+        stores.stores = [...stores.stores, res.data.result];
+        localStorage.setItem('stores', JSON.stringify(stores));
+        isValid = false;
+      }
+    });
     loading.update((v) => false);
   }
 }
