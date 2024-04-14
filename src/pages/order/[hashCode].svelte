@@ -132,6 +132,10 @@ onMount(async () => {
 });
 
 const handleSubmit = () => {
+  if (order.status === 'close') {
+    showMsg.update(() => `此單已關閉，如有臨時加入的需求請洽詢團主 ${order.orderOwner}`);
+    return;
+  }
   submitted = true;
   let isValid = schema.isValidSync(orderItem);
   if (isValid) {
