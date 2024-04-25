@@ -102,8 +102,8 @@ const handleQuery = () => {
           let items = [{ name: '', size: '', option: '', count: 1, price: 0 }];
           if (!_.isEmpty(result.items)) {
             oriOrder = _.cloneDeep(result);
-            if (result.items[orderName.name]) {
-              items = result.items[orderName.name];
+            if (result.items[orderName.fullName]) {
+              items = result.items[orderName.fullName];
             }
           }
           order = { ...result, items };
