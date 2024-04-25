@@ -147,7 +147,7 @@ const handleSubmit = () => {
         .post('addOrder', {
           sheetName: $params.hashCode,
           name: orderName.fullName,
-          items: its,
+          items: its.filter((it) => it.name),
         })
         .then((res) => {
           if (res.data.message) {
