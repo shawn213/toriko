@@ -213,7 +213,7 @@ onDestroy(() => {
       團主: <Span decorationClass="decoration-blue-500 decoration-double">{order.orderOwner}</Span>
     </P>
     {#if order.menuUrl}
-      <Img src={order.menuUrl} alt="Preview" />
+      <Img src={order.menuUrl} alt="" />
     {/if}
   </div>
   <div>

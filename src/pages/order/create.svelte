@@ -4,7 +4,6 @@ import { Heading, Button, FloatingLabelInput, Helper, Label, Input } from 'flowb
 import { Form, Message } from 'svelte-yup';
 import OrderName from '../../lib/OrderName.svelte';
 import axios from '../../utils/GoogleApi';
-import Encoding from '../../utils/Encoding';
 import { loading, showMsg } from '../../stores';
 import db from '../../utils/Database';
 import { goto } from '@roxi/routify';
