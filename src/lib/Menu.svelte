@@ -72,6 +72,11 @@ const menus = [
         href: '/tools/sql',
         icon: 'code-solid',
       },
+      {
+        name: '短 uuid',
+        href: '/tools/short',
+        icon: 'code-solid',
+      }
     ],
   },
 ];

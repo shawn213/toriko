@@ -5,7 +5,7 @@ export const generateShortId = () => {
   return getShortUUID(sheetName);
 }
 
-const getShortUUID = (uuid) => {
+export const getShortUUID = (uuid) => {
   if (uuid.length !== 36) {
     return '';
   }

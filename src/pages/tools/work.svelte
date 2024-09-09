@@ -1,10 +1,24 @@
 <script lang="ts">
-import { Label, Input, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
+import {
+  Label,
+  Input,
+  Table,
+  TableBody,
+  TableBodyCell,
+  TableBodyRow,
+  TableHead,
+  TableHeadCell,
+  Img,
+} from 'flowbite-svelte';
 import dayjs from 'dayjs';
+import _ from 'lodash';
 
 let startMonth = dayjs().format('YYYYMM');
 let endMonth = dayjs().format('YYYYMM');
 let manDay = 1;
+let totalWorkDay = 0;
+let totalPercentDay = 0;
+let totalPercentTime = 0;
 $: items = [];
 
 const isWorkDay = (date: any) => {
@@ -39,6 +53,9 @@ $: {
   percentDay = Math.round(workDay * manDay * 10) / 10;
   percentTime = Math.round(workDay * 8 * manDay * 10) / 10;
   items[idx] = { month: startDay.add(-1, 'month').format('MMM'), workDay, percentDay, percentTime };
+  totalWorkDay = _.sumBy(items, 'workDay');
+  totalPercentDay = _.sumBy(items, 'percentDay');
+  totalPercentTime = _.sumBy(items, 'percentTime');
 }
 </script>
 
@@ -62,6 +79,8 @@ $: {
         {#each items as item}
           <TableHeadCell>{item.month}</TableHeadCell>
         {/each}
+        <TableHeadCell padding="px-6"
+          >總共</TableHeadCell>
       </TableHead>
       <TableBody>
         <TableBodyRow>
@@ -69,18 +88,21 @@ $: {
           {#each items as item}
             <TableBodyCell>{item.workDay}</TableBodyCell>
           {/each}
+          <TableBodyCell>{totalWorkDay}</TableBodyCell>
         </TableBodyRow>
         <TableBodyRow>
           <TableBodyCell>換算天數</TableBodyCell>
           {#each items as item}
             <TableBodyCell>{item.percentDay}</TableBodyCell>
           {/each}
+          <TableBodyCell>{totalPercentDay}</TableBodyCell>
         </TableBodyRow>
         <TableBodyRow>
           <TableBodyCell>換算工時</TableBodyCell>
           {#each items as item}
             <TableBodyCell>{item.percentTime}</TableBodyCell>
           {/each}
+          <TableBodyCell>{totalPercentTime}</TableBodyCell>
         </TableBodyRow>
       </TableBody>
     </Table>
