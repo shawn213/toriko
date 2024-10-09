@@ -12,9 +12,9 @@ const handleClick = () => {
     tabWidth: 2,
     keywordCase: 'upper',
     linesBetweenQueries: 3,
-    logicalOperatorNewline: 'after',
+    logicalOperatorNewline: 'before',
     expressionWidth: 80,
-    indentStyle: 'tabularLeft',
+    indentStyle: 'tabularLeft'
   });
 };
 
