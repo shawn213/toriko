@@ -1,8 +1,8 @@
 # The Docker image that will be used to build your app
-image: node:lts
+image: node:20
 # Functions that should be executed before the build script is run
 before_script:
-  - npm install -g pnpm
+  - npm install -g @pnpm/exe
 pages:
   script:
     - export BASE_PATH=/$CI_PROJECT_NAME

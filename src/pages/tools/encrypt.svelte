@@ -127,7 +127,6 @@ const handleClick = () => {
         id="key-input"
         placeholder="Default input"
         bind:value={key}
-        {rows}
         disabled={!['default'].includes(selected)} />
     </div>
   {/if}

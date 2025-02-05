@@ -63,6 +63,11 @@ const menus = [
         icon: 'code-solid',
       },
       {
+        name: 'json yaml 互轉',
+        href: '/tools/yaml',
+        icon: 'code-solid',
+      },
+      {
         name: 'mybatis',
         href: '/tools/mybatis',
         icon: 'code-solid',

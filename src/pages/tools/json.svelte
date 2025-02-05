@@ -27,7 +27,10 @@ const handleChange = (flag) => {
 
 <div class="grid items-center grid-cols-11 gap-4">
   <div class="mb-6 col-span-5">
-    <Label for="content-input" class="block mb-2">minify</Label>
+    <div class="flex justify-between">
+      <Label for="content-input" class="block mb-2">minify</Label>
+      <Button on:click={() => navigator.clipboard.writeText(minify)}>copy</Button>
+    </div>
     <Textarea
       id="content-input"
       placeholder={JSON.stringify({ key: 'test' })}
