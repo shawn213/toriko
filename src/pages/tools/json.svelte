@@ -25,28 +25,17 @@ const handleChange = (flag) => {
 };
 </script>
 
-<div class="grid items-center grid-cols-11 gap-4">
+<div class="grid items-center grid-cols-10 gap-1">
   <div class="mb-6 col-span-5">
-    <div class="flex justify-between">
-      <Label for="content-input" class="block mb-2">minify</Label>
-      <Button on:click={() => navigator.clipboard.writeText(minify)}>copy</Button>
-    </div>
+    <Label for="content-input" class="block mb-2">minify</Label>
     <Textarea
       id="content-input"
       placeholder={JSON.stringify({ key: 'test' })}
       bind:value={minify}
       {rows}
       style="height: 500px;" />
-  </div>
-  <div class="item-center justify-center flex">
-    <div class="block">
-      <div class="mb-2">
-        <Button on:click={() => handleChange('')}>{'<'}</Button>
-        <Button on:click={handleClick}>{'>'}</Button>
-      </div>
-      <div class="justify-center flex">
-        <Button on:click={() => handleChange('minify')}>minify</Button>
-      </div>
+    <div class="flex justify-center">
+      <Button on:click={() => navigator.clipboard.writeText(minify)}>copy</Button>
     </div>
   </div>
   <div class="mb-6 col-span-5">
@@ -54,5 +43,9 @@ const handleChange = (flag) => {
     <p class="dark:text-white" style="height: 500px;">
       <JSONEditor bind:content={target} mainMenuBar={false} navigationBar={false} />
     </p>
+    <div class="flex justify-center mt-2">
+      <Button on:click={() => handleChange('')} class="mr-1">{'<'}</Button>
+      <Button on:click={() => handleChange('minify')}>minify</Button>
+    </div>
   </div>
 </div>
