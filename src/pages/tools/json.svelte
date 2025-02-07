@@ -36,6 +36,7 @@ const handleChange = (flag) => {
       style="height: 500px;" />
     <div class="flex justify-center">
       <Button on:click={() => navigator.clipboard.writeText(minify)}>copy</Button>
+      <Button on:click={() => handleClick()} class="mr-1">{'>'}</Button>
     </div>
   </div>
   <div class="mb-6 col-span-5">

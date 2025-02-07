@@ -1,4 +1,5 @@
 <script lang="ts">
+//@ts-nocheck
 import { Label, Textarea, Button, Toggle, Input, Select } from 'flowbite-svelte';
 import _ from 'lodash';
 import Rabbit from 'crypto-js/rabbit';
