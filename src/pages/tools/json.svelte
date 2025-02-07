@@ -26,7 +26,7 @@ const handleChange = (flag) => {
 </script>
 
 <div class="grid items-center grid-cols-10 gap-1">
-  <div class="mb-6 col-span-5">
+  <div class="mb-6 col-span-3">
     <Label for="content-input" class="block mb-2">minify</Label>
     <Textarea
       id="content-input"
@@ -39,7 +39,7 @@ const handleChange = (flag) => {
       <Button on:click={() => handleClick()}>{'>'}</Button>
     </div>
   </div>
-  <div class="mb-6 col-span-5">
+  <div class="mb-6 col-span-7">
     <Label for="default-input" class="block mb-2">格式化後</Label>
     <p class="dark:text-white" style="height: 500px;">
       <JSONEditor bind:content={target} mainMenuBar={false} navigationBar={false} />
