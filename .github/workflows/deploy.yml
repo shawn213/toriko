@@ -2,9 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    # 只在有符合 tag 格式的推送時觸發，類似你的 GitLab 規則
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
   build_and_deploy:
