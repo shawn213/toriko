@@ -5,6 +5,16 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Configure pages
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -18,6 +28,10 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -40,7 +54,7 @@ jobs:
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/
+          path: dist/
 
   deploy:
     needs: build_and_deploy
