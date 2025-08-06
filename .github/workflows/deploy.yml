@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "VITE_API_URL=${{ vars.VITE_API_URL }}" >> .env
           echo "VITE_API_SALT=${{ vars.VITE_API_SALT }}" >> .env
-          echo "VITE_VERSION=${{ github.ref_name }}" >> .env
+          echo "VITE_VERSION=v0426" >> .env
           echo $VITE_API_URL
         # 這裡用 GitHub Secrets 儲存敏感參數，並用 tag 名稱當版本號
 
